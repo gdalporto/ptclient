@@ -23,20 +23,25 @@ export class TreatmentPage extends React.Component {
         const myCondition = this.props.users[activeUser].condition;
         const yourTreatment = this.findTreatment(myCondition);
         const list = yourTreatment.map(treatment => {
+            const treatmentObject = {
+                activeUser:this.props.activeUser,
+                treatment:treatment,                            
+                date:new Date().getDate(),
+                status:this.props.status
+            }
             return (
                 <div>
                     <div> 
                         <Link to={`/instructions/:${treatment}`}> {treatment}</Link>
                     </div>
                     <div> 
-                        <MarkComplete  />
+                        <MarkComplete treatmentObject={treatmentObject} />
                     </div>
                 </div>
                 
             )
         })
 
-        
         
         return (
             <div className="treatmentPageWrapper">

@@ -17,12 +17,12 @@ export const addUser = (user) => ({
 });
 
 export const LOG_TREATMENT = 'LOG_TREATMENT';
-export const logTreatment = (treatment) => ({
+export const logTreatment = (treatmentObject) => ({
     type: LOG_TREATMENT,
-    userNum: treatment.userNum,
-    date: treatment.date,
-    activity: treatment.activity,
-    status: treatment.status
+    activeUser: treatmentObject.activeUser,
+    date: treatmentObject.date,
+    treatment: treatmentObject.activity,
+    status: treatmentObject.status
 });
 
 

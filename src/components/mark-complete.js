@@ -1,11 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {logTreatment} from '../actions';
 
 export class DisplayInstructions extends React.Component {
 
     handleClick(event){
         event.preventDefault();
         console.log("Clicked");
+        console.log("props check treatmentObject", this.props.treatmentObject)
+        this.props.dispatch(logTreatment(this.props.treatmentObject));
         
     };
     render() {
@@ -17,8 +20,7 @@ export class DisplayInstructions extends React.Component {
     }
 };
 
-const mapStateToProps = (state) => {
 
-}
+export default connect()(DisplayInstructions);
 
-export default connect(mapStateToProps)(DisplayInstructions);
+

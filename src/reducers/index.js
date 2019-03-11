@@ -10,12 +10,12 @@ const initialState =  {
             condition: "Lower Back",
             treatments: ["Crunches", "Leg Lifts"],
             log: [
-                {date: 02/15/2019,
+                {date: new Date(2019, 1, 15),
                 "Crunches": "complete"
                 },
-                {date: 02/28/2019,
-                    "Crunches": "complete",
-                    "Leg Lifts": "complete"
+                {date: new Date(2019, 1, 28),
+                "Crunches": "complete",
+                "Leg Lifts": "complete"
                 }
             ]
         },
@@ -26,15 +26,15 @@ const initialState =  {
             condition: "Upper Back",
             treatments: ["Shoulder Rolls", "Leg Lifts"],
             log: [
-                {date: 03/5/2019,
+                {date: new Date(2019, 2, 5),
                 "Shoulder Rolls": "complete"
                 },
-                {date: 03/6/2019,
+                {date: new Date(2019, 2, 6),
                 "Shoulder Rolls": "incomplete",
                 "Leg Lifts": "complete"
                 }
             ]
-        }
+        },
         {
             id: 2,
             userName: "jimbob",
@@ -122,11 +122,52 @@ export const reducer = (state=initialState, action) => {
         })
 
     }
+    else if(action.type===actions.LOG_TREATMENT){
+        console.log("INSIDE LOG_TREATMENT REDUCER");
+        console.log("action definition", action)
+        console.log("action.treatment", action.treatment)
+        const activity = action.activity;
+        const activityObject = {[activity]: action.status}
+        const updatedUser = {
+            id:state.users[action.activeUser].id,
+            userName: state.users[action.activeUser].userName,
+            password: state.users[action.activeUser].password,
+            condition:state.users[action.activeUser].condition,
+            treatments:state.users[action.activeUser].treatments,
+            log: [...state.users[action.activeUser].log,{
+                date:action.date,
+                [action.activity]: action.status
+            }]
+
+        }
+        return Object.assign({},state,{
+            users :[...state.users, {
+                updatedUser
+            }]
+                
+        })
+    }
 
     return state;
 }
     
-    
+// activeUser:this.props.activeUser,
+// treatment:treatment,                            
+// date:new Date().getDate(),
+// status:this.props.status
 
+
+
+// export const LOG_TREATMENT = 'LOG_TREATMENT';
+// export const logTreatment = (treatment) => ({
+//     type: LOG_TREATMENT,
+//     date: treatment.date,
+//     activity: treatment.activity,
+//     status: treatment.status
+// });
+
+// id: action.id,
+// log: [...state.users.log,{
+//     date: action.date,
 
 
