@@ -10,11 +10,11 @@ const initialState =  {
             condition: "Lower Back",
             treatments: ["Crunches", "Leg Lifts"],
             log: [
-                {date: new Date(2019, 1, 15),
+                {date: new Date(2019, 1, 6),
                 "Crunches": "complete"
                 },
-                {date: new Date(2019, 1, 28),
-                "Crunches": "complete",
+                {date: new Date(2019, 2, 14),
+                "Crunches": "incomplete",
                 "Leg Lifts": "complete"
                 }
             ]
@@ -126,8 +126,29 @@ export const reducer = (state=initialState, action) => {
         console.log("INSIDE LOG_TREATMENT REDUCER");
         console.log("action definition", action)
         console.log("action.treatment", action.treatment)
-        const activity = action.activity;
-        const activityObject = {[activity]: action.status}
+        // const activity = action.activity;
+        // const activityObject = {[activity]: action.status}
+        // const updatedUsers = state.users;
+
+
+        // if(action.date in updatedUsers[action.activeUser].log) {
+        //     updatedUsers[action.activeUser].log
+        // }
+
+        
+        
+        
+        // ={
+        //     id:state.users[action.activeUser].id,
+        //     userName: state.users[action.activeUser].userName,
+        //     password: state.users[action.activeUser].password,
+        //     condition:state.users[action.activeUser].condition,
+        //     treatments:state.users[action.activeUser].treatments,
+        //     log: state.users[action.activeUser].log.concat({
+        //         date:action.date,
+        //         [action.activity]: action.status
+        //     });
+
         const updatedUser = {
             id:state.users[action.activeUser].id,
             userName: state.users[action.activeUser].userName,
@@ -154,3 +175,26 @@ export const reducer = (state=initialState, action) => {
 //     "Leg Lifts": "complete"
 //     })                
 
+
+
+
+// {
+//     id: 0,
+//     userName: "jimbob",
+//     password: "Hello12345",
+//     condition: "Lower Back",
+//     treatments: ["Crunches", "Leg Lifts"],
+//     log: {
+//         "2019-01-15": [
+//             {Crunches: "complete"},
+//             {"Leg Lifts": "complete"}
+//             ],
+
+    
+//         "2019-01-28": [
+//             {Crunches: "complete"},
+//             {"Leg Lifts": ""}
+//             ]
+            
+//     }
+// },
