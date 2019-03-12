@@ -37,7 +37,7 @@ const initialState =  {
         },
         {
             id: 2,
-            userName: "jimbob",
+            userName: "blob",
             password: "Hello12345",
             condition: "Shoulder",
             treatments: ["Shoulder Rolls"],
@@ -134,40 +134,23 @@ export const reducer = (state=initialState, action) => {
             password: state.users[action.activeUser].password,
             condition:state.users[action.activeUser].condition,
             treatments:state.users[action.activeUser].treatments,
-            log: [...state.users[action.activeUser].log,{
+            log: state.users[action.activeUser].log.concat({
                 date:action.date,
                 [action.activity]: action.status
-            }]
-
+            })
         }
+        console.log(action.activeUser);
         return Object.assign({},state,{
-            users :[...state.users, {
-                updatedUser
-            }]
-                
+            users: [...state.users, updatedUser]
         })
     }
 
     return state;
 }
     
-// activeUser:this.props.activeUser,
-// treatment:treatment,                            
-// date:new Date().getDate(),
-// status:this.props.status
 
-
-
-// export const LOG_TREATMENT = 'LOG_TREATMENT';
-// export const logTreatment = (treatment) => ({
-//     type: LOG_TREATMENT,
-//     date: treatment.date,
-//     activity: treatment.activity,
-//     status: treatment.status
-// });
-
-// id: action.id,
-// log: [...state.users.log,{
-//     date: action.date,
-
+// users: state.users[action.activeUser].log.push({date: new Date(2019, 1, 28),
+//     "Crunches": "incomplete",
+//     "Leg Lifts": "complete"
+//     })                
 
