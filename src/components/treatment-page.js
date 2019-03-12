@@ -19,25 +19,55 @@ export class TreatmentPage extends React.Component {
     };
 
     render() {
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            return [year, month, day].join('-');
+        }
+        
         const activeUser = this.props.activeUser;
         const myCondition = this.props.users[activeUser].condition;
         const yourTreatment = this.findTreatment(myCondition);
+        
         const list = yourTreatment.map(treatment => {
+            let treatmentState = "";
+            const today= new Date();
+            let dateExists = false;
+            this.props.users[activeUser].log.map(logitem=>{
+                console.log("date is", formatDate(logitem.date))
+                if(formatDate(today)==formatDate(logitem.date)){
+                    dateExists = true;
+                    if(!(logitem[treatment])){
+                        treatmentState="incomplete"
+                    }
+                    else {
+                        treatmentState=logitem[treatment];
+                    }
+                    console.log("Treatment, TreatmentState", treatment, treatmentState);
+                }
+            })
+
             const treatmentObject = {
                 activeUser:this.props.activeUser,
                 treatment:treatment,                            
-                date:new Date().getDate(),
-                status:this.props.status
+                date: today,
+                status:treatmentState,
+                dateExists
             }
+
             return (
-                <div>
+                <li key={treatment}>
                     <div> 
                         <Link to={`/instructions/:${treatment}`}> {treatment}</Link>
                     </div>
                     <div> 
                         <MarkComplete treatmentObject={treatmentObject} />
                     </div>
-                </div>
+                </li>
                 
             )
         })

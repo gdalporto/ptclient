@@ -21,7 +21,7 @@ export const logTreatment = (treatmentObject) => ({
     type: LOG_TREATMENT,
     activeUser: treatmentObject.activeUser,
     date: treatmentObject.date,
-    treatment: treatmentObject.activity,
+    treatment: treatmentObject.treatment,
     status: treatmentObject.status
 });
 

@@ -13,11 +13,14 @@ const initialState =  {
                 {date: new Date(2019, 1, 6),
                 "Crunches": "complete"
                 },
-                {date: new Date(2019, 2, 14),
+                {date: new Date(2019, 2, 6),
                 "Crunches": "incomplete",
                 "Leg Lifts": "complete"
-                }
-            ]
+                },
+                {date: new Date(2019, 2, 12),
+                    "Crunches": "complete"
+                    },
+                ]
         },
         {
             id: 1,
@@ -123,60 +126,31 @@ export const reducer = (state=initialState, action) => {
 
     }
     else if(action.type===actions.LOG_TREATMENT){
-        console.log("INSIDE LOG_TREATMENT REDUCER");
-        console.log("action definition", action)
-        console.log("action.treatment", action.treatment)
-        // const activity = action.activity;
-        // const activityObject = {[activity]: action.status}
-        // const updatedUsers = state.users;
-
-
-        // if(action.date in updatedUsers[action.activeUser].log) {
-        //     updatedUsers[action.activeUser].log
-        // }
-
-        
-        
-        
-        // ={
-        //     id:state.users[action.activeUser].id,
-        //     userName: state.users[action.activeUser].userName,
-        //     password: state.users[action.activeUser].password,
-        //     condition:state.users[action.activeUser].condition,
-        //     treatments:state.users[action.activeUser].treatments,
-        //     log: state.users[action.activeUser].log.concat({
-        //         date:action.date,
-        //         [action.activity]: action.status
-        //     });
-
-        const updatedUser = {
-            id:state.users[action.activeUser].id,
-            userName: state.users[action.activeUser].userName,
-            password: state.users[action.activeUser].password,
-            condition:state.users[action.activeUser].condition,
-            treatments:state.users[action.activeUser].treatments,
-            log: state.users[action.activeUser].log.concat({
-                date:action.date,
-                [action.activity]: action.status
-            })
-        }
-        console.log(action.activeUser);
+        const users = state.users.map((user,index) => {
+            if(index!==action.activeUser){
+                return user
+            }
+            else {
+                return {
+                    ...user, 
+                    log: [
+                        ...user.log,
+                        {
+                            date: action.date,
+                            [action.treatment]:action.status                            
+                        }
+                    ]
+                }
+            }
+        })
         return Object.assign({},state,{
-            users: [...state.users, updatedUser]
+            users
         })
     }
 
     return state;
 }
     
-
-// users: state.users[action.activeUser].log.push({date: new Date(2019, 1, 28),
-//     "Crunches": "incomplete",
-//     "Leg Lifts": "complete"
-//     })                
-
-
-
 
 // {
 //     id: 0,
@@ -185,7 +159,14 @@ export const reducer = (state=initialState, action) => {
 //     condition: "Lower Back",
 //     treatments: ["Crunches", "Leg Lifts"],
 //     log: {
-//         "2019-01-15": [
+//         "2019-01-15": {
+//          completed: ["Leg Lifts", "Shoulder Rolls"],
+//          incompleted: []
+//      }
+
+
+
+// [
 //             {Crunches: "complete"},
 //             {"Leg Lifts": "complete"}
 //             ],
