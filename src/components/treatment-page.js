@@ -35,17 +35,26 @@ export class TreatmentPage extends React.Component {
         
         const list = yourTreatment.map(treatment => {
             let treatmentState = "";
-            const today= new Date();
+            const today= formatDate(new Date());
+            console.log("TODAY", today);
             let dateExists = false;
             this.props.users[activeUser].log.map(logitem=>{
-                console.log("date is", formatDate(logitem.date))
-                if(formatDate(today)==formatDate(logitem.date)){
+                console.log("treatment page logitem is", logitem)
+                const logitemkey= Object.keys(logitem).toString();
+                console.log("TODAY,LOGITEM.DATE", today, Object.keys(logitem).toString());
+                if(today==Object.keys(logitem).toString()){
+                    console.log("DATE EXISTS");
+                    console.log("LOGITEM IS", logitem);
                     dateExists = true;
-                    if(!(logitem[treatment])){
+                    const logs = logitem[logitemkey];
+                    console.log("LOGS", logs);
+                    const thisTreatmentStatus = logs[treatment];
+                    console.log("treatmentstatus", thisTreatmentStatus);
+                    if(!(thisTreatmentStatus)){
                         treatmentState="incomplete"
                     }
                     else {
-                        treatmentState=logitem[treatment];
+                        treatmentState=thisTreatmentStatus;
                     }
                     console.log("Treatment, TreatmentState", treatment, treatmentState);
                 }

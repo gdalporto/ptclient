@@ -16,9 +16,8 @@ const initialState =  {
                     "Crunches": "incomplete",
                     }
                 },
-                {"2019-03-13": {
-                    "Crunches": "complete",
-                    "Leg Lifts": "incomplete"
+                {"2019-03-12": {
+                    "Crunches": "complete"
                     }
                 }
             ]
@@ -29,20 +28,15 @@ const initialState =  {
             password: "Hello12345",
             condition: "Upper Back",
             treatments: ["Shoulder Rolls", "Leg Lifts"],
-            log: [{
-                "2019-01-15": {
-                    "Leg Lifts": "complete", 
-                    "Crunches": "incomplete",
-                    }
-                },
-                {"2019-03-13": {
-                    "Crunches": "complete",
-                    "Leg Lifts": "incomplete"
-                    }
-                }
-            ]
-
-
+            // log: [
+            //     {date: "2019-03-05",
+            //     "Shoulder Rolls": "complete"
+            //     },
+            //     {date: "2019-03-08",
+            //     "Shoulder Rolls": "incomplete",
+            //     "Leg Lifts": "complete"
+            //     }
+            // ]
         },
         {
             id: 2,
@@ -50,7 +44,7 @@ const initialState =  {
             password: "Hello12345",
             condition: "Shoulder",
             treatments: ["Shoulder Rolls"],
-            log: []
+            // log: []
         },
 
     ],
@@ -137,84 +131,18 @@ export const reducer = (state=initialState, action) => {
                 return user
             }
             else {
-                let newLog={};
-                let dateList = {};
-
-                // interate over each log date to create a master date list.
-                user.log.forEach(log => {
-                    dateList = {...dateList, ...log}
-                })
-                let flatDateList = Object.keys(dateList);
-                let dateKey = [action.date]
-                flatDateList.forEach(date=>{
-                    if(date!==dateKey[0]){
-                        dateKey = [...dateKey, date]
-                    }
-                })
-                dateKey.sort();
-
-                // iterate over each date log to process new set of logs
-                dateKey.forEach((date,index)=>{
-
-                    // if dateKey doesn't match action date, then copy the old logs into the new logs
-                    const logitem = user.log[index];
-                    if(action.date !== date){
-                        newLog={...newLog, ...logitem}
-                        console.log("INSIDE FOREACH, DATE NOT MATCHED, NEWLOG IS", newLog)
-                    }
-
-                    // if datekey does match action date, 
-                    else if(action.date == date) {
-                        let actionLog={};
-
-                        //if no existing logs for this date, then append new action and status 
-                        if(!logitem){
-                            actionLog={[action.date]:{[action.treatment]: action.status}};
-                            newLog={...newLog, ...actionLog}
-                            console.log("INSIDE FOREACH, DATE MATCHED, NO EXISTING, NEWLOG IS", newLog);
-                        }
-
-                        // if there are existing treatments, then iterate over each entry, appending new entry. 
-                        else {
-                            const newActionEntry = {[action.treatment]: action.status};
-                            let logList={};
-                            let logEntry={}
-                            let logDate=Object.keys(logitem);
-                            let logKeys = Object.keys(logitem[logDate]);
-                            let treatment=action.treatment
-                            let totalLogKeys = [treatment];
-                            logKeys.forEach(key=>{
-                                if(key!==totalLogKeys[0]){
-                                    totalLogKeys = [...totalLogKeys, key]
-                                }
-                            })
-                            totalLogKeys.forEach((key)=>{
-                                const logItem = user.log[index];
-                                const dayLogs=logItem[logDate];
-                                const keyStatus=dayLogs[key];
-                                logEntry = {[key]:keyStatus};
-                                logList={...logList, ...logEntry, ...newActionEntry}
-
-                            })
-                            actionLog={[action.date]:logList}
-                            newLog={...newLog, ...actionLog};
-                            console.log("INSIDE FOREACH, DATE MATCHED, EXISTING, NEWLOG IS", newLog);
-                        }
-                    }
-                })
-                console.log("NEWLOG AFTER DATEKEY ITERATION", newLog);
-                let newLogArray =Object.keys(newLog).map(key => {
-                    return { [key]:newLog[key] }
-                })
                 return {
                     ...user, 
-                    log: newLogArray
-                    
+                    log: [
+                        ...user.log,
+                        {
+                            date: action.date,
+                            [action.treatment]:action.status                            
+                        }
+                    ]
                 }
             }
-
         })
-        console.log("NEW USERS RECORD IS", users);
         return Object.assign({},state,{
             users
         })
@@ -225,3 +153,80 @@ export const reducer = (state=initialState, action) => {
     
 
 
+
+
+
+
+// {
+//     id: 0,
+//     userName: "jimbob",
+//     password: "Hello12345",
+//     condition: "Lower Back",
+//     treatments: ["Crunches", "Leg Lifts"],
+//     log: [
+//         {date: "2019-02-06",
+//         "Crunches": "complete"
+//         },
+//         {date: "2019-03-06",
+//         "Crunches": "incomplete",
+//         "Leg Lifts": "complete"
+//         },
+//         {date: "2019-03-12",
+//         "Crunches": "complete"
+//         }
+//         ]
+// },
+// {
+//     id: 1,
+//     userName: "suelynn",
+//     password: "Hello12345",
+//     condition: "Upper Back",
+//     treatments: ["Shoulder Rolls", "Leg Lifts"],
+//     log: [
+//         {date: "2019-03-05",
+//         "Shoulder Rolls": "complete"
+//         },
+//         {date: "2019-03-08",
+//         "Shoulder Rolls": "incomplete",
+//         "Leg Lifts": "complete"
+//         }
+//     ]
+// },
+// {
+//     id: 2,
+//     userName: "blob",
+//     password: "Hello12345",
+//     condition: "Shoulder",
+//     treatments: ["Shoulder Rolls"],
+//     log: []
+// },
+
+
+
+// {
+//     id: 0,
+//     userName: "jimbob",
+//     password: "Hello12345",
+//     condition: "Lower Back",
+//     treatments: ["Crunches", "Leg Lifts"],
+//     log: {
+//         "2019-01-15": {
+//          completed: ["Leg Lifts", "Shoulder Rolls"],
+//          incompleted: []
+//      }
+
+
+
+// [
+//             {Crunches: "complete"},
+//             {"Leg Lifts": "complete"}
+//             ],
+
+    
+//         "2019-01-28": [
+//             {Crunches: "complete"},
+//             {"Leg Lifts": ""}
+//             ]
+            
+//     }
+// },
