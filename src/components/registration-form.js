@@ -24,6 +24,7 @@ export class RegistrationForm extends React.Component {
 
         this.props.dispatch(addUser(user))
         this.props.dispatch(changeAuthStatus(user))
+//        this.props.dispatch(changeActiveUser())
     }
     
     render() {
@@ -100,8 +101,7 @@ export default connect(mapStateToProps)(
             console.log({errors});
            dispatch(focus('registration', Object.keys(errors)[0]))
        }
-    })
-    (RegistrationForm)
+    })(RegistrationForm)
 );
 
 

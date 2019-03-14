@@ -8,7 +8,7 @@ export class DisplayInstructions extends React.Component {
         event.preventDefault();
         console.log("Clicked");
         console.log("props check treatmentObject", this.props.treatmentObject)
-        if(this.props.treatmentObject.status=="incomplete"){
+        if(this.props.treatmentObject.status==="incomplete"){
             this.props.treatmentObject.status = "complete";
         }
         else {

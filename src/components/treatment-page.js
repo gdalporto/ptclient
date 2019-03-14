@@ -36,27 +36,23 @@ export class TreatmentPage extends React.Component {
         const list = yourTreatment.map(treatment => {
             let treatmentState = "";
             const today= formatDate(new Date());
-            console.log("TODAY", today);
             let dateExists = false;
+            treatmentState="incomplete"
             this.props.users[activeUser].log.map(logitem=>{
-                console.log("treatment page logitem is", logitem)
-                const logitemkey= Object.keys(logitem).toString();
-                console.log("TODAY,LOGITEM.DATE", today, Object.keys(logitem).toString());
-                if(today==Object.keys(logitem).toString()){
-                    console.log("DATE EXISTS");
-                    console.log("LOGITEM IS", logitem);
+                const logItemKey= Object.keys(logitem).toString();
+                if(today===logItemKey){
                     dateExists = true;
-                    const logs = logitem[logitemkey];
-                    console.log("LOGS", logs);
+                    const logs = logitem[logItemKey];
                     const thisTreatmentStatus = logs[treatment];
-                    console.log("treatmentstatus", thisTreatmentStatus);
                     if(!(thisTreatmentStatus)){
-                        treatmentState="incomplete"
+                        return treatmentState="incomplete"
                     }
                     else {
-                        treatmentState=thisTreatmentStatus;
+                        return treatmentState=thisTreatmentStatus;
                     }
-                    console.log("Treatment, TreatmentState", treatment, treatmentState);
+                }
+                else {
+                    return treatmentState="incomplete"
                 }
             })
 
@@ -101,7 +97,6 @@ const mapStateToProps = state => {
     return ({
     users: state.reducer.users,
     treatments: state.reducer.treatments,
-    conditions: state.reducer.conditions,
     activeUser: state.reducer.activeUser,
     authStatus: state.reducer.authStatus, 
     conditions: state.reducer.conditions

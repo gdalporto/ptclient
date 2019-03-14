@@ -9,9 +9,6 @@ export class Main extends React.Component  {
     render () {
         let numRecords = this.props.users.length;
         
-    
-        console.log(this.props);
-        console.log(this.props.users.length);
         return (
             <Router>
 
@@ -23,9 +20,10 @@ export class Main extends React.Component  {
                     <p>----This is from Main ----</p>
 
                     <p>trouble shooting text</p>
-                    <p>hello world, i am {this.props.users[0].userName} and my treatment is  {this.props.treatments.Crunches.description}</p>
-                    <p>the number of users is {numRecords} and the authStatus is {this.props.authStatus}.</p>
-                    <p>Console logging a list of users {this.props.users.forEach(user => console.log("usernames", user.userName))}</p>
+                    <p>User: {this.props.users[this.props.activeUser].userName} </p>
+                    <p>Treatment:  {this.props.treatments.Crunches.description}</p>
+                    <p>Number of users: {numRecords}</p>
+                    <p>AuthStatus: {this.props.authStatus}.</p>
                     
                      
                     
@@ -40,6 +38,7 @@ const mapStateToProps = state => {
     return ({
     users: state.reducer.users,
     treatments: state.reducer.treatments,
+    activeUser: state.reducer.activeUser,
     authStatus: state.reducer.authStatus
 })}
 

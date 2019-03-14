@@ -1,5 +1,4 @@
 import * as actions from '../actions';
-import markComplete from '../components/mark-complete';
 
 
 const initialState =  {
@@ -9,7 +8,7 @@ const initialState =  {
             userName: "jimbob",
             password: "Hello12345",
             condition: "Lower Back",
-            treatments: ["Crunches", "Leg Lifts"],
+            treatments: ["Crunches", "Leg Lifts", "Shoulder Rolls"],
             log: [{
                 "2019-01-15": {
                     "Leg Lifts": "complete", 
@@ -90,7 +89,7 @@ const initialState =  {
             "Shoulder Rolls": {
                 id: 3,
                 description: "lorem ipsum.",
-                video: "https://www.youtube.com",
+                video: "https://www.youtube.com/embed/v9hnx_iIhxE",
                 steps: [
                     "Roll your shoulders forward.",
                     "Slowly make large circles.",
@@ -103,7 +102,7 @@ const initialState =  {
         },
     
     conditions: [
-        {"Lower Back": ["Crunches", "Leg Lifts"]},
+        {"Lower Back": ["Crunches", "Leg Lifts", "Shoulder Rolls"]},
         {"Upper Back": ["Shoulder Rolls", "Leg Lifts"]},
         {"Shoulder": ["Shoulder Rolls"]}
     ],
@@ -119,12 +118,15 @@ export const reducer = (state=initialState, action) => {
                 id: action.id,
                 userName: action.userName,
                 password: action.password,
-                condition: action.condition
+                condition: action.condition,
+                log: []
             }]
         })
     }
+
     else if(action.type===actions.CHANGE_AUTH_STATUS) {
         console.log("INSIDE CHANGE_AUTH_STATUS REDUCER");
+        console.log("ACTION", action)
         return Object.assign({},state,{
             authStatus: action.authStatus,
             activeUser: action.activeUser
@@ -164,7 +166,7 @@ export const reducer = (state=initialState, action) => {
                     }
 
                     // if datekey does match action date, 
-                    else if(action.date == date) {
+                    else if(action.date === date) {
                         let actionLog={};
 
                         //if no existing logs for this date, then append new action and status 

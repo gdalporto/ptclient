@@ -16,6 +16,13 @@ export const addUser = (user) => ({
     condition: user.condition
 });
 
+export const CHANGE_ACTIVE_USER = 'CHANGE_ACTIVE_USER';
+export const changeActiveUser = (user) => ({
+    type: CHANGE_ACTIVE_USER,
+    userName: user.userName,
+});
+
+
 export const LOG_TREATMENT = 'LOG_TREATMENT';
 export const logTreatment = (treatmentObject) => ({
     type: LOG_TREATMENT,
