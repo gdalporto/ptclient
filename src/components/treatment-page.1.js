@@ -13,6 +13,7 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
+
 export class TreatmentPage extends React.Component {
     findTreatment(myCondition){
         const numberConditions = this.props.conditions.length;
@@ -26,61 +27,56 @@ export class TreatmentPage extends React.Component {
         };
     return "NO MATCH";
     };
-    parseLogEntry(logEntry, date){
-        let treatmentArray=Object.keys(logEntry[date]);
-        let statusArray = treatmentArray.map(treatment => {
-            let thisEntry=logEntry[date]
-            return thisEntry[treatment]
-        })
-        return [treatmentArray, statusArray];
-    }
     priorList() {
         let userlog=this.props.users[this.props.activeUser].log;
         let daysBack = 30;
-        let treatments = this.props.users[this.props.activeUser].treatments;
-        console.log("treatments", treatments);
-        let treatmentDates= userlog.map(logEntry=>{
-            let stringDate= Object.keys(logEntry).toString();
-            return stringDate;
-        });
-        let fragment=[]
+        let dateGroupings={};
         for (let i=1; i<=daysBack; i++){
             let thisDate=formatDate(new Date()-i*86400000);
-            if(treatmentDates.includes(thisDate)){
-                let logEntryArray = userlog.filter(log=>{
-                    return log[thisDate];
-                })
-                let logEntry=logEntryArray[0]
-                let parsedLogEntry=this.parseLogEntry(logEntry, thisDate);
-                let treatmentArray= parsedLogEntry[0];
-                let statusArray=parsedLogEntry[1];
-                let treatmentDate = <div className='daysBackDate'>${thisDate}</div>
-                let treatmentBox = treatmentArray.map((treatment, index)=>{
-                    return <div key={treatment} className='daysBackTreatment'>{treatment}:{statusArray[index]}</div>
-                })
-                fragment.push(<React.Fragment>
-                    <div>
-                        {treatmentDate}
-                    </div>
-                    <div>
-                        {treatmentBox}
-                    </div>
-                </React.Fragment>);
+            console.log(userlog.filter(recordedDate => Object.keys(recordedDate).includes(thisDate)));
+            let thisTreatments = userlog
+                .filter(recordedDate => Object.keys(recordedDate).includes(thisDate))
+                .map(logitem=> logitem[thisDate])
+                console.log("THIS TREATMENTS", thisTreatments[0]);
+            if(thisTreatments[0]){
+                dateGroupings[thisDate]= thisTreatments[0];
             }
             else {
-                fragment.push(<React.Fragment>
-                <div>
-                    <div className='daysBackDate'>{thisDate}</div>
-                </div>
-                <div>
-                    <div className='daysBackTreatment'>{treatments}</div>
-                </div>
-            </React.Fragment>)
-                
+                dateGroupings[thisDate]={};
             }
+
+            // dateGroupings[thisDate] = userlog
+            //     .filter(recordedDate => Object.keys(recordedDate).includes(thisDate))
+            //     .map(logitem=> logitem[thisDate]);
         }
-        return (fragment);
+        console.log("DateGroupings",dateGroupings)
+        console.log("object.entries(dateGroupings)",Object.entries(dateGroupings));
+
+        Object.entries(dateGroupings).map(entry=>{
+                    
+            let treatmentsObjectArray=entry[1];
+            let treatmentsObject=treatmentsObjectArray[0];
+            if(treatmentsObject){
+                let treatmentKeys=Object.keys(treatmentsObject);
+                treatmentKeys.map(key=>{
+                        return `${key}, ${treatmentsObject[key]}`;
+                })
+            }
+            return `${entry[0]}, ${entry[1]}`;
+         });
+
+
+
+        return(
+            <div>
+            </div>
+        )
+
+
     }
+
+
+
 
 
     render() {

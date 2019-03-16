@@ -15,7 +15,7 @@ const initialState =  {
                     "Crunches": "incomplete",
                     }
                 },
-                {"2019-03-13": {
+                {"2019-03-14": {
                     "Crunches": "complete",
                     "Leg Lifts": "incomplete"
                     }
