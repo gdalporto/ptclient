@@ -5,7 +5,7 @@ const initialState =  {
     users: [
         {
             id: 0,
-            userName: "jimbob",
+            username: "jimbob",
             password: "Hello12345",
             condition: "Lower Back",
             treatments: ["Crunches", "Leg Lifts", "Shoulder Rolls"],
@@ -24,7 +24,7 @@ const initialState =  {
         },
         {
             id: 1,
-            userName: "suelynn",
+            username: "suelynn",
             password: "Hello12345",
             condition: "Upper Back",
             treatments: ["Shoulder Rolls", "Leg Lifts"],
@@ -45,7 +45,7 @@ const initialState =  {
         },
         {
             id: 2,
-            userName: "blob",
+            username: "blob",
             password: "Hello12345",
             condition: "Shoulder",
             treatments: ["Shoulder Rolls"],
@@ -116,7 +116,7 @@ export const reducer = (state=initialState, action) => {
         return Object.assign({},state,{
             users:[...state.users,{
                 id: action.id,
-                userName: action.userName,
+                username: action.username,
                 password: action.password,
                 condition: action.condition,
                 log: []

@@ -16,12 +16,15 @@ export class RegistrationForm extends React.Component {
 
     onSubmit(values) {
         const id = this.props.users.length;
+        console.log("ID", id)
         const {username, password, condition} = values;
         const authStatus = "loggedIn"        
         const user = {id, username, password, condition, authStatus};
-        return this.props
-            .dispatch(addUser(user))
-            .then(()=>this.props.dispatch(login(user)));
+        console.log("User", user);
+
+        this.props.dispatch(addUser(user))
+        this.props.dispatch(changeAuthStatus(user))
+//        this.props.dispatch(changeActiveUser())
     }
     
     render() {

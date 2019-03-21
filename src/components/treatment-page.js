@@ -137,7 +137,7 @@ export class TreatmentPage extends React.Component {
         
         return (
             <div className="treatmentPageWrapper">
-                <p>Welcome {this.props.users[activeUser].userName}</p>
+                <p>Welcome {this.props.users[activeUser].username}</p>
                 <p>Your condition is {this.props.users[activeUser].condition} pain</p>
                 <p>Today's exercise program: </p>
                 <ul>{list}  </ul>

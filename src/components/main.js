@@ -20,7 +20,7 @@ export class Main extends React.Component  {
                     <p>----This is from Main ----</p>
 
                     <p>trouble shooting text</p>
-                    <p>User: {this.props.users[this.props.activeUser].userName} </p>
+                    <p>User: {this.props.users[this.props.activeUser].username} </p>
                     <p>Treatment:  {this.props.treatments.Crunches.description}</p>
                     <p>Number of users: {numRecords}</p>
                     <p>AuthStatus: {this.props.authStatus}.</p>
