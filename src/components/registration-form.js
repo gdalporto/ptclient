@@ -1,7 +1,9 @@
 import React from 'react';
 import {reduxForm, Field, focus} from 'redux-form';
 import Input from './input';
-import {addUser, changeAuthStatus} from '../actions';
+import {changeAuthStatus} from '../actions';
+import {registerUser} from '../actions/users';
+import {login} from '../actions/auth';
 import {required, nonEmpty, email, checkLength, matches} from '../validators';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
@@ -10,7 +12,7 @@ import {Redirect} from 'react-router-dom';
 // const select = React.DOM.input;
 
 const passwordLength = checkLength({min: 10, max: 72});
-
+const matchesPassword = matches('password');
 
 export class RegistrationForm extends React.Component {
 
@@ -18,19 +20,17 @@ export class RegistrationForm extends React.Component {
         const id = this.props.users.length;
         const {username, password, condition} = values;
         const authStatus = "loggedIn"        
-        const user = {id, username, password, condition, authStatus};
+        const user = {id, username, password, condition};
         return this.props
-            .dispatch(addUser(user))
+            .dispatch(registerUser(user))
             .then(()=>this.props.dispatch(login(user)));
     }
     
     render() {
         console.log("INSIDE RENDER ON REGISTRATION FORM",this.props.users);
-        // let users = this.props.users.map(user => user);
-        const matchesPassword = matches('password');
 
         if(this.props.authStatus === "loggedIn") {
-            return <Redirect to="/loggedIn" />;
+            return <Redirect to="/dashboard" />;
         }
 
         return (

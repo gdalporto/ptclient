@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom';
 
+import RegistrationPage from '/registration-page';
 import RegistrationForm from './registration-form';
 // import {BrowserRouter as Router, Route} from 'react-router-dom';
 import TreatmentPage from './treatment-page';
@@ -45,7 +46,7 @@ export class Main extends React.Component  {
 
                 <div className='mainWrapper'> 
                     <Route exact path="/" component={LandingPage} />
-                    <Route exact path="/register" component={RegistrationForm} />
+                    <Route exact path="/register" component={RegistrationPage} />
                     <Route exact path="/dashboard" component={TreatmentPage} />
                     <Route exact path="/instructions/:treatment" component={Instructions} />
 
