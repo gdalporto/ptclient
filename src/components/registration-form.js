@@ -1,7 +1,7 @@
 import React from 'react';
 import {reduxForm, Field, focus} from 'redux-form';
 import Input from './input';
-import {changeAuthStatus} from '../actions';
+//import {changeAuthStatus} from '../actions/core-actions';
 import {registerUser} from '../actions/users';
 import {login} from '../actions/auth';
 import {required, nonEmpty, email, checkLength, matches} from '../validators';
@@ -17,13 +17,19 @@ const matchesPassword = matches('password');
 export class RegistrationForm extends React.Component {
 
     onSubmit(values) {
-        const id = this.props.users.length;
+//        const id = this.props.users.length;
         const {username, password, condition} = values;
-        const authStatus = "loggedIn"        
-        const user = {id, username, password, condition};
+        const treatment_object = this.props.conditions.find(item=>!!item[condition]);
+        console.log("TREATMEWNT OBJECT", treatment_object);
+        const treatment_wrapper = treatment_object[condition];
+        console.log("TREATMENT WRAPPER", treatment_wrapper);
+        const treatments = [...treatment_wrapper];
+        console.log("TREATMENTS", treatments);
+        const log=[];
+        const user = {username, password, condition, treatments, log};
         return this.props
             .dispatch(registerUser(user))
-            .then(()=>this.props.dispatch(login(user)));
+            .then(()=>this.props.dispatch(login(username, password)));
     }
     
     render() {
@@ -88,7 +94,8 @@ export class RegistrationForm extends React.Component {
 
 const mapStateToProps = state => ({
     users: state.reducer.users,
-    authStatus: state.reducer.authStatus
+    authStatus: state.reducer.authStatus,
+    conditions: state.reducer.conditions
 })
 
 export default connect(mapStateToProps)(

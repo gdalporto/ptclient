@@ -35,9 +35,9 @@ export class TreatmentPage extends React.Component {
         return [treatmentArray, statusArray];
     }
     priorList() {
-        let userlog=this.props.user.log;
+        let userlog=this.props.users[this.props.activeUser].log;
         let daysBack = 30;
-        let treatments = this.props.user.treatments;
+        let treatments = this.props.users[this.props.activeUser].treatments;
         console.log("treatments", treatments);
         let treatmentDates= userlog.map(logEntry=>{
             let stringDate= Object.keys(logEntry).toString();
@@ -85,6 +85,7 @@ export class TreatmentPage extends React.Component {
 
     render() {
         
+        const activeUser = this.props.activeUser;
         const myCondition = this.props.condition;
         const yourTreatment = this.findTreatment(myCondition);
         const today= formatDate(new Date());
@@ -93,7 +94,7 @@ export class TreatmentPage extends React.Component {
             let treatmentState = "";
             let dateExists = false;
             treatmentState="incomplete"
-            this.props.user.log.map(logitem=>{
+            this.props.users[activeUser].log.map(logitem=>{
                 const logItemKey= Object.keys(logitem).toString();
                 if(today===logItemKey){
                     dateExists = true;
@@ -112,6 +113,7 @@ export class TreatmentPage extends React.Component {
             })
 
             const treatmentObject = {
+                activeUser:this.props.activeUser,
                 treatment:treatment,                            
                 date: today,
                 status:treatmentState,
@@ -135,8 +137,8 @@ export class TreatmentPage extends React.Component {
         
         return (
             <div className="treatmentPageWrapper">
-                <p>Welcome {this.props.username}</p>
-                <p>Your condition is {this.props.condition} pain</p>
+                <p>Welcome {this.props.users[activeUser].username}</p>
+                <p>Your condition is {this.props.users[activeUser].condition} pain</p>
                 <p>Today's exercise program: </p>
                 <ul>{list}  </ul>
                 <p> </p>
@@ -153,10 +155,10 @@ export class TreatmentPage extends React.Component {
 const mapStateToProps = state => {   
     console.log({state});
     return ({
-    user: state.auth.currentUser,
-    username: state.auth.currentUser.username,
+    users: state.reducer.users,
     treatments: state.reducer.treatments,
-    conditions: state.reducer.conditions,
+    activeUser: state.reducer.activeUser,
+    authStatus: state.reducer.authStatus, 
     condition: state.auth.currentUser.condition
 })}
 

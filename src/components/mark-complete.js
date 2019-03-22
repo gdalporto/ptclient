@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {logTreatment} from '../actions';
+import {logTreatment} from '../actions/core-actions';
 
 export class DisplayInstructions extends React.Component {
 
