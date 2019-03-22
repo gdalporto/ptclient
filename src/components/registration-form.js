@@ -1,7 +1,9 @@
 import React from 'react';
 import {reduxForm, Field, focus} from 'redux-form';
 import Input from './input';
-import {addUser, changeAuthStatus} from '../actions';
+//import {changeAuthStatus} from '../actions/core-actions';
+import {registerUser} from '../actions/users';
+import {login} from '../actions/auth';
 import {required, nonEmpty, email, checkLength, matches} from '../validators';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
@@ -10,30 +12,31 @@ import {Redirect} from 'react-router-dom';
 // const select = React.DOM.input;
 
 const passwordLength = checkLength({min: 10, max: 72});
-
+const matchesPassword = matches('password');
 
 export class RegistrationForm extends React.Component {
 
     onSubmit(values) {
-        const id = this.props.users.length;
-        console.log("ID", id)
-        const {userName, password, condition} = values;
-        const authStatus = "loggedIn"        
-        const user = {id, userName, password, condition, authStatus};
-        console.log("User", user);
-
-        this.props.dispatch(addUser(user))
-        this.props.dispatch(changeAuthStatus(user))
-//        this.props.dispatch(changeActiveUser())
+//        const id = this.props.users.length;
+        const {username, password, condition} = values;
+        const treatment_object = this.props.conditions.find(item=>!!item[condition]);
+        console.log("TREATMEWNT OBJECT", treatment_object);
+        const treatment_wrapper = treatment_object[condition];
+        console.log("TREATMENT WRAPPER", treatment_wrapper);
+        const treatments = [...treatment_wrapper];
+        console.log("TREATMENTS", treatments);
+        const log=[];
+        const user = {username, password, condition, treatments, log};
+        return this.props
+            .dispatch(registerUser(user))
+            .then(()=>this.props.dispatch(login(username, password)));
     }
     
     render() {
         console.log("INSIDE RENDER ON REGISTRATION FORM",this.props.users);
-        // let users = this.props.users.map(user => user);
-        const matchesPassword = matches('password');
 
         if(this.props.authStatus === "loggedIn") {
-            return <Redirect to="/loggedIn" />;
+            return <Redirect to="/dashboard" />;
         }
 
         return (
@@ -42,9 +45,9 @@ export class RegistrationForm extends React.Component {
                 onSubmit={this.props.handleSubmit(values =>
                     this.onSubmit(values)
             )}>
-                <label htmlFor="userName">UserName (you@you.com)</label>
+                <label htmlFor="username">UserName (you@you.com)</label>
                 <Field 
-                    name = "userName" 
+                    name = "username" 
                     type = "email"
                     component={Input}
                     validate={[required, nonEmpty, email]}
@@ -91,7 +94,8 @@ export class RegistrationForm extends React.Component {
 
 const mapStateToProps = state => ({
     users: state.reducer.users,
-    authStatus: state.reducer.authStatus
+    authStatus: state.reducer.authStatus,
+    conditions: state.reducer.conditions
 })
 
 export default connect(mapStateToProps)(

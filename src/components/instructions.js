@@ -7,14 +7,20 @@ import DisplayInstructions from './display-instructions';
 export class Instructions extends React.Component {
 
     render() {
-        const activeUser = this.props.activeUser;
         const thisTreatment = Object.values(this.props.match.params)[0].substring(1);
-        const treatmentInstruction=this.props.treatments[thisTreatment];
+        console.log("THISTREATMENT", thisTreatment);
+        const treatmentObject=this.props.treatments.find(treatment=>{
+            console.log(Object.keys(treatment)[1].toString());
+            return Object.keys(treatment)[1].toString()==thisTreatment;
+        });
+        console.log("TREATMENT OBJECT", treatmentObject);
+        const treatmentInstruction = treatmentObject[thisTreatment];
+        console.log("TREATMENT INSTRUCTION", treatmentInstruction);
 
         return (
             <div className="instructionsPageWrapper">
                 <h2>Instructions for: {thisTreatment.toString()}</h2>
-                <p>Your condition is {this.props.users[activeUser].condition} pain</p>
+                <p>Your condition is {this.props.condition} pain</p>
                 <p>{thisTreatment} is one of your treatments </p>
                 <DisplayInstructions treatment={thisTreatment} treatmentInstruction={treatmentInstruction}/>
 
@@ -28,10 +34,11 @@ export class Instructions extends React.Component {
 const mapStateToProps = state => {   
     console.log({state});
     return ({
-    users: state.reducer.users,
+    user: state.auth.currentUser,
     treatments: state.reducer.treatments,
     activeUser: state.reducer.activeUser,
-    authStatus: state.reducer.authStatus
+    authStatus: state.reducer.authStatus,
+    condition: state.auth.currentUser.condition
 })}
 
 export default  connect(mapStateToProps)(Instructions);
