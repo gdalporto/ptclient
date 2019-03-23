@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom';
 import {loadAuthToken} from '../local-storage'
-import jwtDecode from 'jwt-decode';
 import {getUserData, saveLoadingUser ,getCoreData} from '../actions/core-actions.js'
 
 
@@ -62,19 +61,18 @@ export class Main extends React.Component  {
     }
 
     render () {
-        let numRecords = this.props.users.length;
-        
         return (
             // <Router>
 
             <div className='mainWrapper'> 
                 {(this.props.loadingData || this.props.loadingUser) && <div>Loading.. please wait!</div> }
                 {!this.props.loadingData && !this.props.loadingUser && 
-                    <Route exact path="/" component={LandingPage} />}
+                <div>
+                    <Route exact path="/" component={LandingPage} />
                     <Route exact path="/register" component={RegistrationPage} />
                     <Route exact path="/dashboard" component={TreatmentPage} />
                     <Route exact path="/instructions/:treatment" component={Instructions} /> 
-                 
+                </div>}
 
             </div>
 
@@ -83,8 +81,8 @@ export class Main extends React.Component  {
     };
 }
 
-const mapStateToProps = state => {   
-    console.log(state);
+const mapStateToProps = state => {  
+    console.log("STATE IS", state); 
     return ({
     hasAuthToken: state.auth.authToken !== null,
     loggedIn: state.auth.currentUser !== null,

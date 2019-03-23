@@ -2,7 +2,7 @@ import * as actions from '../actions/core-actions';
 
 
 const initialState =  {
-    user: [],
+    users: [],
     treatments: {},
     conditions: [],
     // authStatus: "loggedOut",
@@ -117,6 +117,18 @@ const initialState =  {
 }
     
 export const reducer = (state=initialState, action) => {
+    // if(action.type===actions.ADD_USER) {
+    //     console.log("INSIDE ADD_USER REDUCER");
+    //     return Object.assign({},state,{
+    //         users:[...state.users,{
+    //             id: action.id,
+    //             username: action.username,
+    //             password: action.password,
+    //             condition: action.condition,
+    //             log: []
+    //         }]
+    //     })
+    // }
 
     if(action.type===actions.CHANGE_AUTH_STATUS) {
         console.log("INSIDE CHANGE_AUTH_STATUS REDUCER");
@@ -130,7 +142,7 @@ export const reducer = (state=initialState, action) => {
     else if(action.type===actions.SAVE_USER_TO_STATE){
         console.log("inside SAVE_USER_TO_STATE");
         return Object.assign({},state,{
-            user: [...state.user,{
+            users: [...state.users,{
                 id: action.id,
                 username: action.username,
                 condition: action.condition,
@@ -167,87 +179,91 @@ export const reducer = (state=initialState, action) => {
 
 
     else if(action.type===actions.LOG_TREATMENT){
-        const user = state.user.map((user,index) => {
-            let newLog={};
-            let dateList = {};
-
-            // interate over each log date to create a master date list.
-            user.log.forEach(log => {
-                dateList = {...dateList, ...log}
-            })
-            let flatDateList = Object.keys(dateList);
-            let dateKey = [action.date]
-            flatDateList.forEach(date=>{
-                if(date!==dateKey[0]){
-                    dateKey = [...dateKey, date]
-                }
-            })
-            dateKey.sort();
-
-            // iterate over each date log to process new set of logs
-            dateKey.forEach((date,index)=>{
-
-                // if dateKey doesn't match action date, then copy the old logs into the new logs
-                const logitem = user.log[index];
-                if(action.date !== date){
-                    newLog={...newLog, ...logitem}
-                    console.log("INSIDE FOREACH, DATE NOT MATCHED, NEWLOG IS", newLog)
-                }
-
-                // if datekey does match action date, 
-                else if(action.date === date) {
-                    let actionLog={};
-
-                    //if no existing logs for this date, then append new action and status 
-                    if(!logitem){
-                        actionLog={[action.date]:{[action.treatment]: action.status}};
-                        newLog={...newLog, ...actionLog}
-                        console.log("INSIDE FOREACH, DATE MATCHED, NO EXISTING, NEWLOG IS", newLog);
-                    }
-
-                    // if there are existing treatments, then iterate over each entry, appending new entry. 
-                    else {
-                        const newActionEntry = {[action.treatment]: action.status};
-                        let logList={};
-                        let logEntry={}
-                        let logDate=Object.keys(logitem);
-                        let logKeys = Object.keys(logitem[logDate]);
-                        let treatment=action.treatment
-                        let totalLogKeys = [treatment];
-                        logKeys.forEach(key=>{
-                            if(key!==totalLogKeys[0]){
-                                totalLogKeys = [...totalLogKeys, key]
-                            }
-                        })
-                        totalLogKeys.forEach((key)=>{
-                            const logItem = user.log[index];
-                            const dayLogs=logItem[logDate];
-                            const keyStatus=dayLogs[key];
-                            logEntry = {[key]:keyStatus};
-                            logList={...logList, ...logEntry, ...newActionEntry}
-
-                        })
-                        actionLog={[action.date]:logList}
-                        newLog={...newLog, ...actionLog};
-                        console.log("INSIDE FOREACH, DATE MATCHED, EXISTING, NEWLOG IS", newLog);
-                    }
-                }
-            })
-            console.log("NEWLOG AFTER DATEKEY ITERATION", newLog);
-            let newLogArray =Object.keys(newLog).map(key => {
-                return { [key]:newLog[key] }
-            })
-            return {
-                ...user, 
-                log: newLogArray
-                
+        const users = state.users.map((user,index) => {
+            if(index!==action.activeUser){
+                return user
             }
-        
+            else {
+                let newLog={};
+                let dateList = {};
+
+                // interate over each log date to create a master date list.
+                user.log.forEach(log => {
+                    dateList = {...dateList, ...log}
+                })
+                let flatDateList = Object.keys(dateList);
+                let dateKey = [action.date]
+                flatDateList.forEach(date=>{
+                    if(date!==dateKey[0]){
+                        dateKey = [...dateKey, date]
+                    }
+                })
+                dateKey.sort();
+
+                // iterate over each date log to process new set of logs
+                dateKey.forEach((date,index)=>{
+
+                    // if dateKey doesn't match action date, then copy the old logs into the new logs
+                    const logitem = user.log[index];
+                    if(action.date !== date){
+                        newLog={...newLog, ...logitem}
+                        console.log("INSIDE FOREACH, DATE NOT MATCHED, NEWLOG IS", newLog)
+                    }
+
+                    // if datekey does match action date, 
+                    else if(action.date === date) {
+                        let actionLog={};
+
+                        //if no existing logs for this date, then append new action and status 
+                        if(!logitem){
+                            actionLog={[action.date]:{[action.treatment]: action.status}};
+                            newLog={...newLog, ...actionLog}
+                            console.log("INSIDE FOREACH, DATE MATCHED, NO EXISTING, NEWLOG IS", newLog);
+                        }
+
+                        // if there are existing treatments, then iterate over each entry, appending new entry. 
+                        else {
+                            const newActionEntry = {[action.treatment]: action.status};
+                            let logList={};
+                            let logEntry={}
+                            let logDate=Object.keys(logitem);
+                            let logKeys = Object.keys(logitem[logDate]);
+                            let treatment=action.treatment
+                            let totalLogKeys = [treatment];
+                            logKeys.forEach(key=>{
+                                if(key!==totalLogKeys[0]){
+                                    totalLogKeys = [...totalLogKeys, key]
+                                }
+                            })
+                            totalLogKeys.forEach((key)=>{
+                                const logItem = user.log[index];
+                                const dayLogs=logItem[logDate];
+                                const keyStatus=dayLogs[key];
+                                logEntry = {[key]:keyStatus};
+                                logList={...logList, ...logEntry, ...newActionEntry}
+
+                            })
+                            actionLog={[action.date]:logList}
+                            newLog={...newLog, ...actionLog};
+                            console.log("INSIDE FOREACH, DATE MATCHED, EXISTING, NEWLOG IS", newLog);
+                        }
+                    }
+                })
+                console.log("NEWLOG AFTER DATEKEY ITERATION", newLog);
+                let newLogArray =Object.keys(newLog).map(key => {
+                    return { [key]:newLog[key] }
+                })
+                return {
+                    ...user, 
+                    log: newLogArray
+                    
+                }
+            }
 
         })
-        console.log("NEW USERS RECORD IS", user);
+        console.log("NEW USERS RECORD IS", users);
         return Object.assign({},state,{
-            user
+            users
         })
     }
 

@@ -11,7 +11,7 @@ export class Instructions extends React.Component {
         console.log("THISTREATMENT", thisTreatment);
         const treatmentObject=this.props.treatments.find(treatment=>{
             console.log(Object.keys(treatment)[1].toString());
-            return Object.keys(treatment)[1].toString()==thisTreatment;
+            return Object.keys(treatment)[1].toString()===thisTreatment;
         });
         console.log("TREATMENT OBJECT", treatmentObject);
         const treatmentInstruction = treatmentObject[thisTreatment];

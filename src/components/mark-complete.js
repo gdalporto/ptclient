@@ -7,7 +7,7 @@ export class DisplayInstructions extends React.Component {
     handleClick(event){
         event.preventDefault();
         console.log("Clicked");
-        console.log("props check treatmentObject", this.props.treatmentObject)
+        console.log("props check treatmentObject status", this.props.treatmentObject.status)
         if(this.props.treatmentObject.status==="incomplete"){
             this.props.treatmentObject.status = "complete";
         }

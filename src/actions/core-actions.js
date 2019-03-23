@@ -15,11 +15,11 @@ export const changeAuthStatus = (user) => ({
 export const SAVE_USER_TO_STATE = 'SAVE_USER_TO_STATE';
 export const saveUserToState = (userData) => ({
     type: SAVE_USER_TO_STATE,
-    id: userData.id,
-    username: userData.username,
-    condition: userData.condition,
-    treatments: userData.treatment,
-    log: userData.log
+    id: userData.user.id,
+    username: userData.user.username,
+    condition: userData.user.condition,
+    treatments: userData.user.treatments,
+    log: userData.user.log
 })
 
 export const SAVE_LOADING_CORE_DATA='SAVE_LOADING_CORE_DATA';
@@ -56,7 +56,6 @@ export const getCoreData = () => (dispatch) => {
         return response.json();
     }) 
     .then(jsonData =>{
-        console.log("TREATMENT QUERY RESULTS", jsonData)
         dispatch(updateTreatmentState(jsonData))
     })
     .then(()=>{
@@ -67,7 +66,6 @@ export const getCoreData = () => (dispatch) => {
             return response.json();
         }) 
         .then(jsonData =>{
-            console.log("CONDITION QUERY RESULTS", jsonData)
             dispatch(updateConditionState(jsonData))
         })
     })
@@ -90,7 +88,6 @@ export const getUserData = () => (dispatch) => {
     dispatch(saveLoadingUser({"loadingUser":true}))
     let authToken = loadAuthToken();
     const decodedToken = jwtDecode(authToken);
-    let username=decodedToken.user.username;
    
     fetch(`${API_BASE_URL}/authcheck`, {
         method: 'GET',
@@ -104,7 +101,7 @@ export const getUserData = () => (dispatch) => {
     }) 
     .then(jsonData =>{
         stat=jsonData.status;
-        if(stat=="authenticated"){
+        if(stat==="authenticated"){
             console.log("FETCHING USER");
             fetch(`${API_BASE_URL}/protected/user`, {
                 method: 'GET',
@@ -153,7 +150,6 @@ export const changeActiveUser = (user) => ({
 export const LOG_TREATMENT = 'LOG_TREATMENT';
 export const logTreatment = (treatmentObject) => ({
     type: LOG_TREATMENT,
-    activeUser: treatmentObject.activeUser,
     date: treatmentObject.date,
     treatment: treatmentObject.treatment,
     status: treatmentObject.status

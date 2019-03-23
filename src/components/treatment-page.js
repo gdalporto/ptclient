@@ -18,7 +18,6 @@ export class TreatmentPage extends React.Component {
         const numberConditions = this.props.conditions.length;
        
         for(let i=0; i<numberConditions; i++){
-            console.log(i);
             let thisCondition = this.props.conditions[i];
             if(thisCondition[myCondition]){
                 return thisCondition[myCondition];
@@ -38,7 +37,6 @@ export class TreatmentPage extends React.Component {
         let userlog=this.props.user.log;
         let daysBack = 30;
         let treatments = this.props.user.treatments;
-        console.log("treatments", treatments);
         let treatmentDates= userlog.map(logEntry=>{
             let stringDate= Object.keys(logEntry).toString();
             return stringDate;
@@ -58,7 +56,7 @@ export class TreatmentPage extends React.Component {
                 let treatmentBox = treatmentArray.map((treatment, index)=>{
                     return <div key={treatment} className='daysBackTreatment'>{treatment}:{statusArray[index]}</div>
                 })
-                fragment.push(<React.Fragment>
+                fragment.push(<React.Fragment key={i}>
                     <div>
                         {treatmentDate}
                     </div>
@@ -68,7 +66,7 @@ export class TreatmentPage extends React.Component {
                 </React.Fragment>);
             }
             else {
-                fragment.push(<React.Fragment>
+                fragment.push(<React.Fragment key={i}>
                 <div>
                     <div className='daysBackDate'>{thisDate}</div>
                 </div>
@@ -117,6 +115,8 @@ export class TreatmentPage extends React.Component {
                 status:treatmentState,
                 dateExists
             }
+
+            console.log("TREATMENT OBJECT",treatmentObject)
 
             return (
                 <li key={treatment}>
