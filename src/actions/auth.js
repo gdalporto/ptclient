@@ -33,6 +33,17 @@ export const authError = error => ({
     error
 });
 
+export const LOG_TREATMENT = 'LOG_TREATMENT';
+export const logTreatment = (treatmentObject) => ({
+    type: LOG_TREATMENT,
+    date: treatmentObject.date,
+    treatment: treatmentObject.treatment,
+    status: treatmentObject.status,
+    currentUser: treatmentObject.currentUser
+});
+
+
+
 // Stores the auth token in state and localStorage, and decodes and stores
 // the user data stored in the token
 const storeAuthInfo = (authToken, dispatch) => {

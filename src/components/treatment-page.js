@@ -110,6 +110,7 @@ export class TreatmentPage extends React.Component {
             })
 
             const treatmentObject = {
+                currentUser:this.props.user,
                 treatment:treatment,                            
                 date: today,
                 status:treatmentState,
@@ -152,6 +153,7 @@ export class TreatmentPage extends React.Component {
 
 const mapStateToProps = state => {   
     console.log({state});
+    console.log("state auth currentuser", state.auth.currentUser)
     return ({
     user: state.auth.currentUser,
     username: state.auth.currentUser.username,

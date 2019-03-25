@@ -147,13 +147,6 @@ export const changeActiveUser = (user) => ({
 });
 
 
-export const LOG_TREATMENT = 'LOG_TREATMENT';
-export const logTreatment = (treatmentObject) => ({
-    type: LOG_TREATMENT,
-    date: treatmentObject.date,
-    treatment: treatmentObject.treatment,
-    status: treatmentObject.status
-});
 
 
 
