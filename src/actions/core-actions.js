@@ -22,6 +22,12 @@ export const saveUserToState = (userData) => ({
     log: userData.user.log
 })
 
+export const CLEAR_USER = 'CLEAR_USER';
+export const clearUser = () => ({
+    type: CLEAR_USER,
+})
+
+
 export const SAVE_LOADING_CORE_DATA='SAVE_LOADING_CORE_DATA';
 export const saveLoadingCoreData=(loadingData)=>({
     type: SAVE_LOADING_CORE_DATA,
@@ -70,6 +76,7 @@ export const getCoreData = () => (dispatch) => {
         })
     })
     .then(()=>{
+        console.log("DONE LOADING CORE DATA");
         dispatch(saveLoadingCoreData({"loadingData":false}))
     })
     .catch(err => {
@@ -88,6 +95,7 @@ export const getUserData = () => (dispatch) => {
     dispatch(saveLoadingUser({"loadingUser":true}))
     let authToken = loadAuthToken();
     const decodedToken = jwtDecode(authToken);
+    console.log({decodedToken});
    
     fetch(`${API_BASE_URL}/authcheck`, {
         method: 'GET',

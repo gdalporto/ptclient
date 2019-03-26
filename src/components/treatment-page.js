@@ -2,6 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import MarkComplete from './mark-complete';
+import Instructions from './instructions';
+
+import './treatment-page.css'
 
 function formatDate(date) {
     var d = new Date(date),
@@ -25,69 +28,26 @@ export class TreatmentPage extends React.Component {
         };
     return "NO MATCH";
     };
-    parseLogEntry(logEntry, date){
-        let treatmentArray=Object.keys(logEntry[date]);
-        let statusArray = treatmentArray.map(treatment => {
-            let thisEntry=logEntry[date]
-            return thisEntry[treatment]
+    instructionList() {
+        const yourTreatment = this.findTreatment(this.props.condition);
+        const instructions = yourTreatment.map(treatment => {
+
+            return (
+                <li className='instructionBlock'>
+                    <Instructions treatment={treatment} />
+                </li>
+            )
+    
         })
-        return [treatmentArray, statusArray];
+        return instructions
+            
     }
-    priorList() {
-        let userlog=this.props.user.log;
-        let daysBack = 30;
-        let treatments = this.props.user.treatments;
-        let treatmentDates= userlog.map(logEntry=>{
-            let stringDate= Object.keys(logEntry).toString();
-            return stringDate;
-        });
-        let fragment=[]
-        for (let i=1; i<=daysBack; i++){
-            let thisDate=formatDate(new Date()-i*86400000);
-            if(treatmentDates.includes(thisDate)){
-                let logEntryArray = userlog.filter(log=>{
-                    return log[thisDate];
-                })
-                let logEntry=logEntryArray[0]
-                let parsedLogEntry=this.parseLogEntry(logEntry, thisDate);
-                let treatmentArray= parsedLogEntry[0];
-                let statusArray=parsedLogEntry[1];
-                let treatmentDate = <div className='daysBackDate'>${thisDate}</div>
-                let treatmentBox = treatmentArray.map((treatment, index)=>{
-                    return <div key={treatment} className='daysBackTreatment'>{treatment}:{statusArray[index]}</div>
-                })
-                fragment.push(<React.Fragment key={i}>
-                    <div>
-                        {treatmentDate}
-                    </div>
-                    <div>
-                        {treatmentBox}
-                    </div>
-                </React.Fragment>);
-            }
-            else {
-                fragment.push(<React.Fragment key={i}>
-                <div>
-                    <div className='daysBackDate'>{thisDate}</div>
-                </div>
-                <div>
-                    <div className='daysBackTreatment'>{treatments}</div>
-                </div>
-            </React.Fragment>)
-                
-            }
-        }
-        return (fragment);
-    }
-
-
-    render() {
-        
+    list(){
         const myCondition = this.props.condition;
         const yourTreatment = this.findTreatment(myCondition);
         const today= formatDate(new Date());
 
-        const list = yourTreatment.map(treatment => {
+        const treatmentDisplay = yourTreatment.map(treatment => {
             let treatmentState = "";
             let dateExists = false;
             treatmentState="incomplete"
@@ -120,31 +80,44 @@ export class TreatmentPage extends React.Component {
             console.log("TREATMENT OBJECT",treatmentObject)
 
             return (
-                <li key={treatment}>
-                    <div> 
+                <li key={treatment} className='treatmentBlock'>
+                    <div className='treatmentItemContainer'> 
                         <Link to={`/instructions/:${treatment}`}> {treatment}</Link>
                     </div>
-                    <div> 
+                    <div className='treatmentStatusContainer'> 
                         <MarkComplete treatmentObject={treatmentObject} />
                     </div>
                 </li>
                 
             )
         })
+        return treatmentDisplay;
+    }
 
+    render() {
+        
 
         
         return (
             <div className="treatmentPageWrapper">
-                <p>Welcome {this.props.username}</p>
-                <p>Your condition is {this.props.condition} pain</p>
-                <p>Today's exercise program: </p>
-                <ul>{list}  </ul>
-                <p> </p>
-                <p>Over the past month, you've completed the following treatments: </p>
-                <ul>{this.priorList()}</ul>
-
-                <p>---------------------</p>                
+                <p><span className='mainLabel'>Welcome</span> {this.props.username}</p>
+                <p><span className='mainLabel'>Your condition is</span> {this.props.condition} pain</p>
+                <p><span className='mainLabel'>Today's exercise program:</span> </p>
+                <ul>
+                    <li className='treatmentBlock'>
+                        <div className='column1Header'> 
+                            Treatment Name
+                        </div>
+                        <div className='column2Header'> 
+                            Treatment Status
+                        </div>
+                    </li>
+                    {this.list()}  
+                </ul>
+                <div className='treatmentInstruction'>
+                    {this.instructionList()}
+                
+                </div>
             </div>
         )
     }

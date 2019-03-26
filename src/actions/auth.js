@@ -5,6 +5,8 @@ import {API_BASE_URL} from '../config';
 import {normalizeResponseErrors} from './utils';
 import {saveAuthToken, clearAuthToken} from '../local-storage';
 
+import {getUserData} from './core-actions';
+
 export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
 export const setAuthToken = authToken => ({
     type: SET_AUTH_TOKEN,
@@ -38,6 +40,7 @@ export const logTreatmentState = (user) => ({
     type: LOG_TREATMENT_STATE,
     user
 });
+
 
 
 
@@ -149,7 +152,7 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
         })
             .then(res => normalizeResponseErrors(res))
             .then(res => res.json())
-            .then(jsonRes => console.log("AFTER DB CALL, RESPONSE OBJECT IS",jsonRes))
+            .then(jsonRes => dispatch(getUserData()))
             .catch(err => {
                 const {reason, message, location} = err;
                 if (reason === 'ValidationError') {
@@ -171,6 +174,7 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
 // Stores the auth token in state and localStorage, and decodes and stores
 // the user data stored in the token
 const storeAuthInfo = (authToken, dispatch) => {
+    console.log("Inside StoreAuthInfo authtoken", authToken);
     const decodedToken = jwtDecode(authToken);
     dispatch(setAuthToken(authToken));
     dispatch(authSuccess(decodedToken.user));
@@ -231,9 +235,7 @@ export const newAuthTokenPayload = (payload) => (dispatch, getState) => {
             username: payload.username,
             condition: payload.condition,
             treatments: payload.treatments,
-            log: payload.log,
-            error: null,
-            loading: false
+            log: payload.log
         })
     })
         .then(res => normalizeResponseErrors(res))

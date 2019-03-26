@@ -5,6 +5,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import store from './store';
 import './index.css';
 import Main from './components/main';
+import NavBar from './components/navbar';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

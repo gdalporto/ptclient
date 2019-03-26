@@ -4,10 +4,26 @@ import {connect} from 'react-redux';
 import DisplayInstructions from './display-instructions';
 
 
-export class Instructions extends React.Component {
 
+export class Instructions extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    getTreatment(){
+        let treatment;
+        if(!this.props.treatment){
+            treatment = Object.values(this.props.match.params)[0].substring(1);
+        }
+        else {
+            treatment = this.props.treatment;
+        }
+        return treatment;
+    }
+    
     render() {
-        const thisTreatment = Object.values(this.props.match.params)[0].substring(1);
+        let thisTreatment = this.getTreatment();
+    
+        // const thisTreatment = Object.values(this.props.match.params)[0].substring(1);
         console.log("THISTREATMENT", thisTreatment);
         const treatmentObject=this.props.treatments.find(treatment=>{
             console.log(Object.keys(treatment)[1].toString());

@@ -1,15 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Route, withRouter} from 'react-router-dom';
-import {loadAuthToken} from '../local-storage'
-import {getUserData, saveLoadingUser ,getCoreData} from '../actions/core-actions.js'
-
-
+import {loadAuthToken} from '../local-storage';
+import {getUserData, saveLoadingUser ,getCoreData} from '../actions/core-actions.js';
+import { Switch } from 'react-router';
+import NavBar from './navbar.js';
 import RegistrationPage from './registration-page';
-// import {BrowserRouter as Router, Route} from 'react-router-dom';
 import TreatmentPage from './treatment-page';
 import Instructions from './instructions';
 import LandingPage from './landing-page';
+import HistoryPage from './history-page';
+import Logout from './logout';
 import {refreshAuthToken} from '../actions/auth';
 
 
@@ -61,25 +62,34 @@ export class Main extends React.Component  {
     }
 
     render () {
-        return (
-            // <Router>
+        if(!this.props.loadingData && !this.props.loadingUser){
+            console.log("LOADING COMPLETE");
+            return (             
+                <div className='mainWrapper'> 
+                        <NavBar />
+                        <div>
+                            <Switch>
+                                <Route exact path="/" component={LandingPage} />
+                                <Route exact path="/login" component={LandingPage} />                        
+                                <Route exact path="/register" component={RegistrationPage} />
+                                <Route exact path="/dashboard" component={TreatmentPage} />
+                                <Route exact path="/history" component={HistoryPage} />
+                                <Route exact path="/instructions/:treatment" component={Instructions} /> 
+                                <Route exact path="/logout" component={Logout} /> 
+                                
+                            </Switch>
+                        </div>
+                </div>                
+            )
+        }
+        else {
+            return null;
 
-            <div className='mainWrapper'> 
-                {(this.props.loadingData || this.props.loadingUser) && <div>Loading.. please wait!</div> }
-                {!this.props.loadingData && !this.props.loadingUser && 
-                <div>
-                    <Route exact path="/" component={LandingPage} />
-                    <Route exact path="/register" component={RegistrationPage} />
-                    <Route exact path="/dashboard" component={TreatmentPage} />
-                    <Route exact path="/instructions/:treatment" component={Instructions} /> 
-                </div>}
-
-            </div>
-
-            // </Router>
-        );
+        }
     };
 }
+
+
 
 const mapStateToProps = state => {  
     console.log("STATE IS", state); 
@@ -91,6 +101,8 @@ const mapStateToProps = state => {
     activeUser: state.reducer.activeUser,
     authStatus: state.reducer.authStatus,
     loadingData: state.reducer.loadingData,
+    // condition: state.auth.currentUser.condition,
+    // user: state.auth.currentUser,
     loadingUser: state.reducer.loadingUser
 })}
 
