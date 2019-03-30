@@ -12,7 +12,7 @@ export class Logout extends React.Component {
         this.props.dispatch(clearAuth());
         this.props.dispatch(clearUser());
         console.log("SHOULD BE LOGGED OUT");
-        return <Redirect to="/dashboard" />
+//        return <Redirect to="/" />
 
 
     }

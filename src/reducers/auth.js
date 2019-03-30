@@ -21,8 +21,6 @@ const initialState = {
         treatments: [],
         log: []
     },
-    loading: false,
-    error: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -32,8 +30,13 @@ export default function reducer(state = initialState, action) {
         });
     } else if (action.type === CLEAR_AUTH) {
         return Object.assign({}, state, {
-            authToken: null,
-            currentUser: null
+            authToken: null, // authToken !== null does not mean it has been validated
+            currentUser: {
+                username: null,
+                condition: null,
+                treatments: [],
+                log: []
+            }
         });
     } else if (action.type === AUTH_REQUEST) {
         return Object.assign({}, state, {
