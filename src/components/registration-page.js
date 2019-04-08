@@ -15,7 +15,7 @@ export function RegistrationPage(props) {
             <h2>Register for Foo App</h2>
             <RegistrationForm />
             <div className='registrationHomeLoginLink'>
-                <Link to="/">Already have an account? Login</Link>
+                <Link to="/login">Already have an account? Login</Link>
             </div>
         </div>
     );
