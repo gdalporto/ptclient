@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import './history.css';
 import {Link} from 'react-router-dom';
 import MarkComplete from './mark-complete';
 
@@ -36,7 +37,14 @@ export class HistoryPage extends React.Component {
     priorList() {
         let userlog=this.props.user.log;
         let daysBack = 30;
-        let treatments = this.props.user.treatments;
+        let treatments = this.props.user.treatments.map(treatment => {
+            return (
+            <div className='treatment'>
+                <div className='treatmentname'></div>
+                <div className='status'></div>
+            </div>)
+        });
+
         let treatmentDates= userlog.map(logEntry=>{
             let stringDate= Object.keys(logEntry).toString();
             return stringDate;
@@ -52,27 +60,37 @@ export class HistoryPage extends React.Component {
                 let parsedLogEntry=this.parseLogEntry(logEntry, thisDate);
                 let treatmentArray= parsedLogEntry[0];
                 let statusArray=parsedLogEntry[1];
-                let treatmentDate = <div className='daysBackDate'>${thisDate}</div>
+                let treatmentDate = <div className='daysBackDate'>{thisDate}</div>
                 let treatmentBox = treatmentArray.map((treatment, index)=>{
-                    return <div key={treatment} className='daysBackTreatment'>{treatment}:{statusArray[index]}</div>
+                    return (
+                        <div key={treatment} className='treatment'>
+                            <div className='treatmentname'>{treatment}:</div>
+                            <div className='status'>{statusArray[index]}</div>
+                        </div>)
                 })
                 fragment.push(<React.Fragment key={i}>
-                    <div>
-                        {treatmentDate}
-                    </div>
-                    <div>
-                        {treatmentBox}
-                    </div>
+                    <li key={i}>
+                        <div className='treatmentDate'>
+                            {treatmentDate}
+                        </div>
+                        <div className='treatmentBox'>
+                            <div className='daysBackTreatment'>
+                                {treatmentBox}
+                            </div>
+                        </div>
+                    </li>
                 </React.Fragment>);
             }
             else {
                 fragment.push(<React.Fragment key={i}>
-                <div>
-                    <div className='daysBackDate'>{thisDate}</div>
-                </div>
-                <div>
-                    <div className='daysBackTreatment'>{treatments}</div>
-                </div>
+                <li key={i}>
+                    <div className='treatmentDate'>
+                        <div className='daysBackDate'>{thisDate}</div>
+                    </div>
+                    <div className='treatmentBox'>
+                        <div className='daysBackTreatment'>{treatments}</div>
+                    </div>
+                </li>
             </React.Fragment>)
                 
             }
@@ -90,10 +108,21 @@ export class HistoryPage extends React.Component {
         return (
             <div className="historyPageWrapper">
                 <p>Over the past month, you've completed the following treatments: </p>
-                <ul>{this.priorList()}</ul>
+                <ul>
+                    <li className='treatmentBlock'>
+                        <div className='column0Header'> 
+                            Treatment Date
+                        </div>
+                        <div className='column1Header'> 
+                            Treatment
+                        </div>
+                    </li>
+                    {this.priorList()}
+                
+                </ul>
                 <p>---------------------</p>                
             </div>
-        )
+                )
     }
 }
 

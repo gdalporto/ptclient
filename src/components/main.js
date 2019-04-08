@@ -6,12 +6,14 @@ import {getUserData, saveLoadingUser ,getCoreData} from '../actions/core-actions
 import { Switch } from 'react-router';
 import NavBar from './navbar.js';
 import RegistrationPage from './registration-page';
-import TreatmentPage from './treatment-page';
+import Dashboard from './dashboard';
 import Instructions from './instructions';
 import LandingPage from './landing-page';
-import HistoryPage from './history-page';
+import History from './history.js';
 import Logout from './logout';
 import {refreshAuthToken} from '../actions/auth';
+import LogIn from './login';
+import './main.css';
 
 
 export class Main extends React.Component  {
@@ -66,14 +68,14 @@ export class Main extends React.Component  {
             console.log("LOADING COMPLETE");
             return (             
                 <div className='mainWrapper'> 
-                        <NavBar />
-                        <div>
+                        <NavBar className = 'navBarWrapper' />
+                        <div className='bodyWrapper'>
                             <Switch>
                                 <Route exact path="/" component={LandingPage} />
-                                <Route exact path="/login" component={LandingPage} />                        
+                                <Route exact path="/login" component={LogIn} />                        
                                 <Route exact path="/register" component={RegistrationPage} />
-                                <Route exact path="/dashboard" component={TreatmentPage} />
-                                <Route exact path="/history" component={HistoryPage} />
+                                <Route exact path="/dashboard" component={Dashboard} />
+                                <Route exact path="/history" component={History} />
                                 <Route exact path="/instructions/:treatment" component={Instructions} /> 
                                 <Route exact path="/logout" component={Logout} /> 
                                 

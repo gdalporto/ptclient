@@ -17,12 +17,19 @@
 
 }
 
+.column0Header {
+    font-weight: bold;
+    display: inline-block;
+    width: 150px;
+
+}
 .column1Header {
     font-weight: bold;
     display: inline-block;
     width: 200px;
 
 }
+
 .column2Header {
     font-weight: bold;
     display: inline-block;

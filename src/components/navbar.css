@@ -2,7 +2,7 @@
   
 /* Top Navigation Formatting */
 
-.topnav-righ, .topnav {
+.topnav-right, .topnav {
     background-color: grey;
     overflow: hidden;
     margin:0;
@@ -25,11 +25,15 @@
   color: black;
 } */
 
-.topnav >.activeLink {
+ .activeLink {
   background-color: #4CAF50;
   color: white;
 }
 
+/* .topnav > .activeLink {
+  background-color: #4CAF50;
+  color: white;
+} */
 
 
 .topnav-right {

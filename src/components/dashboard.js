@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import MarkComplete from './mark-complete';
 import Instructions from './instructions';
 
-import './treatment-page.css'
+import './dashboard.css'
 
 function formatDate(date) {
     var d = new Date(date),
@@ -16,7 +16,7 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
-export class TreatmentPage extends React.Component {
+export class Dashboard extends React.Component {
     findTreatment(myCondition){
         const numberConditions = this.props.conditions.length;
        
@@ -135,7 +135,7 @@ const mapStateToProps = state => {
     condition: state.auth.currentUser.condition
 })}
 
-export default  connect(mapStateToProps)(TreatmentPage);
+export default  connect(mapStateToProps)(Dashboard);
 
 
 

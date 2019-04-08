@@ -1,0 +1,47 @@
+.treatmentDate {
+    display: inline-block;
+    width: 150px;
+    padding: 10px 0px 10px 0px;
+    position: relative;
+    bottom: 15px;
+}
+
+.treatmentBox {
+    display: inline-block;
+    width: 250px;
+}
+
+li {
+    list-style: none;
+}
+
+.treatmentname {
+    width:120px;
+    display: inline-block;
+}
+
+.status {
+    width:100px;
+    display: inline-block;
+}
+
+
+.column0Header {
+    font-weight: bold;
+    display: inline-block;
+    width: 150px;
+
+}
+.column1Header {
+    font-weight: bold;
+    display: inline-block;
+    width: 200px;
+
+}
+
+.column2Header {
+    font-weight: bold;
+    display: inline-block;
+    width: 200px;
+
+}

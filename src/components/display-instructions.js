@@ -1,15 +1,17 @@
 import React from 'react';
+import './display-instructions.css';
 
 
 export default function DisplayInstructions(props) {
 
     const instructionList=props.treatmentInstruction.steps.map((step,index)=>{
-        return <li key={index}>{step}</li>
+        let number = index +1;
+        return <li key={index}>{number}. {step}</li>
     })
 
     return (
         <div className='treatment'>
-            <p className='treatmentName'> {props.treatment}</p>
+            <p className='treatmentHeader'> Video Instructions for {props.treatment}:</p>
             <iframe 
                 title={props.treatment}
                 width="560" 
@@ -18,9 +20,9 @@ export default function DisplayInstructions(props) {
                 frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen>
             </iframe>
-            <p className='stepsHeader'> Step-by-step Instructions </p>
+            <p className='stepsHeader'> Step-by-step Instructions for {props.treatment}: </p>
 
-                <ul>
+                <ul className='stepByStepList'>
                     {instructionList}
                 </ul>
         </div>

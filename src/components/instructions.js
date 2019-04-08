@@ -36,8 +36,6 @@ export class Instructions extends React.Component {
         return (
             <div className="instructionsPageWrapper">
                 <h2>Instructions for: {thisTreatment.toString()}</h2>
-                <p>Your condition is {this.props.condition} pain</p>
-                <p>{thisTreatment} is one of your treatments </p>
                 <DisplayInstructions treatment={thisTreatment} treatmentInstruction={treatmentInstruction}/>
 
                 <p>---------------------</p>                
