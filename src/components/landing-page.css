@@ -83,9 +83,8 @@ ul.homepageList {
 
 .mainContentWrapper {
     padding: 10px;
-    /* margin-left: auto;
-    margin-right: auto; */
-    /* #4CAF50 */
+    background-color: rgba(101, 174, 32, 0.55)
+    /* background-color: rgba(255, 238, 53, 0.756) */
 }
 
 .buttonContainer {
@@ -96,6 +95,7 @@ ul.homepageList {
 .leftButton {
     float:left;
     padding-left: 10px;
+
 }
 
 .rightButton {
@@ -104,15 +104,14 @@ ul.homepageList {
 }
 
 .standardButton {
-    background-color: rgb(244, 65, 65);
+    background-color:#4CAF50;
     color: white;
-    border: 1px black;
-    
     padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    border: 1px black;    
   }
   
   .buttonText {

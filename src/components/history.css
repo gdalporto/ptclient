@@ -1,14 +1,28 @@
+.historyPageWrapper {
+    padding: 10px;
+    min-width: 400px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto
+}
 .treatmentDate {
     display: inline-block;
     width: 150px;
     padding: 10px 0px 10px 0px;
     position: relative;
     bottom: 15px;
+    vertical-align:top;
+
 }
 
 .treatmentBox {
     display: inline-block;
     width: 250px;
+    padding: 10px 0px 10px 0px;
+    vertical-align:top;
+    position: relative;
+    bottom: 15px;
+
 }
 
 li {
@@ -28,20 +42,25 @@ li {
 
 .column0Header {
     font-weight: bold;
+    padding: 0 0 10px 0;
     display: inline-block;
     width: 150px;
+    vertical-align: top;
 
 }
 .column1Header {
     font-weight: bold;
     display: inline-block;
     width: 200px;
+    padding: 0 0 10px 0;
+    vertical-align: top;
 
 }
-
+/* 
 .column2Header {
     font-weight: bold;
     display: inline-block;
     width: 200px;
 
-}
+} */
+

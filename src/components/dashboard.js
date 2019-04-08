@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import MarkComplete from './mark-complete';
 import Instructions from './instructions';
-
 import './dashboard.css'
 
 function formatDate(date) {
@@ -103,7 +102,7 @@ export class Dashboard extends React.Component {
                 <p><span className='mainLabel'>Welcome</span> {this.props.username}</p>
                 <p><span className='mainLabel'>Your condition is</span> {this.props.condition} pain</p>
                 <p><span className='mainLabel'>Today's exercise program:</span> </p>
-                <ul>
+                <ul className='listContainer'>
                     <li className='treatmentBlock'>
                         <div className='column1Header'> 
                             Treatment Name

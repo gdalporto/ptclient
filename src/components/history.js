@@ -1,8 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import './history.css';
-import {Link} from 'react-router-dom';
-import MarkComplete from './mark-complete';
 
 function formatDate(date) {
     var d = new Date(date),
@@ -50,7 +48,7 @@ export class HistoryPage extends React.Component {
             return stringDate;
         });
         let fragment=[]
-        for (let i=1; i<=daysBack; i++){
+        for (let i=0; i<=daysBack; i++){
             let thisDate=formatDate(new Date()-i*86400000);
             if(treatmentDates.includes(thisDate)){
                 let logEntryArray = userlog.filter(log=>{
@@ -102,8 +100,8 @@ export class HistoryPage extends React.Component {
     render() {
         
         const myCondition = this.props.condition;
-        const yourTreatment = this.findTreatment(myCondition);
-        const today= formatDate(new Date());
+        // const yourTreatment = this.findTreatment(myCondition);
+        // const today= formatDate(new Date());
        
         return (
             <div className="historyPageWrapper">
