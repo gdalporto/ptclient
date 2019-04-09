@@ -1,4 +1,10 @@
 language: node_js
-node_js: 
-  - "10.12"
-
+node_js:
+- '10.12'
+deploy:
+  provider: heroku
+  api_key:
+    secure: nH/9ClTf9mp2nA7Fj9LIJcz8wdI0sCn84felW2HfWbOEv5KJTeqhwrTeDdgY6D6oKUR+SgkXWpZSI8Sqz59ibbxJ2OpT8aF5Sd5D8abrrkw2E8hezwDL0p16BOn2MrdyiXGNkP8fNsLCmjlmnQRAVIIPsj+q3xoAvBU1j9UuVFLH75zfpu73zldNC5RxzqNCOESJjitErocUOYjQNdpmeGmazf044urgt2nA7Gc0AkEvGvoPZa+4U3trKlbxZ0QcfBQTWQoQ/Xl9IADOaBACaDY21hhL2sk2SnqB0BzM9xEnFj7NSs0nEG9oNiN95e481uJXoxmgovZ3SkpUDdi/s/YbfNW/HNJxxVmnESA9OhSXJtBHqa3Dn+ITUlLqJHYFb0OyAd1lKWGIMmG8jdfz42BK5EZm+NMQT5n8riyGGBR8X8JIk9mxKyqP/BS6MmJRUazcJwpANN9pSKglkYjhcPbOWjUBVRFeGz2yHbXDNQsHmSrHkkBohz/6m7V3EZ6csdWtA/aLq8frvbUyZEHBh+x2sjCvM3jcjlRDbnUK00gHLO8UdYkJB7RSV6WOmnf39gpkBir2++2oKeSkKL6BQqGEvW/CaFUyAIlb80AVOTkZfTkMRny/0KLGECOF5XM32f8APnUWEo4FGStQOUaQ8iAn2KuycR1ksFy4JmP/v4M=
+  app: powerful-falls-94009
+  on:
+    repo: gdalporto/ptclient
