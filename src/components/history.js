@@ -45,7 +45,7 @@ export class HistoryPage extends React.Component {
 
         let treatmentDates= userlog.map(logEntry=>{
             let stringDate= Object.keys(logEntry).toString();
-            return stringDate;
+            return stringDate;  
         });
         let fragment=[]
         for (let i=0; i<=daysBack; i++){

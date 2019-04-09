@@ -14,8 +14,6 @@ export default function DisplayInstructions(props) {
             <p className='treatmentHeader'> Video Instructions for {props.treatment}:</p>
             <iframe 
                 title={props.treatment}
-                width="560" 
-                height="315" 
                 src={`${props.treatmentInstruction.video}`}
                 frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen>

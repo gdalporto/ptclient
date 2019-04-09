@@ -50,6 +50,7 @@ export class NavBar extends React.Component {
     }
 
     render() {
+        console.log("UPDATING NAVBAR");
         return (
             <div className='headerContainer'>
                 {this.pickNav()}
@@ -67,4 +68,9 @@ const mapStateToProps = state => {
 
 })}
 
-export default connect(mapStateToProps)(NavBar)
+export default connect(mapStateToProps,
+    null,
+    null,
+    {
+      pure: false
+    })(NavBar)
