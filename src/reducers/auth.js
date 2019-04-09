@@ -22,7 +22,7 @@ const initialState = {
         log: []
     },
 };
-
+// default function
 export default function reducer(state = initialState, action) {
     if (action.type === SET_AUTH_TOKEN) {
         return Object.assign({}, state, {

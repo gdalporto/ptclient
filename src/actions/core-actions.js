@@ -5,12 +5,12 @@ import {loadAuthToken} from '../local-storage'
 
 
 
-export const CHANGE_AUTH_STATUS = 'CHANGE_AUTH_STATUS';
-export const changeAuthStatus = (user) => ({
-    type: CHANGE_AUTH_STATUS,
-    authStatus: user.authStatus,
-    activeUser: user.id
-});
+// export const CHANGE_AUTH_STATUS = 'CHANGE_AUTH_STATUS';
+// export const changeAuthStatus = (user) => ({
+//     type: CHANGE_AUTH_STATUS,
+//     authStatus: user.authStatus,
+//     activeUser: user.id
+// });
 
 export const SAVE_USER_TO_STATE = 'SAVE_USER_TO_STATE';
 export const saveUserToState = (userData) => ({

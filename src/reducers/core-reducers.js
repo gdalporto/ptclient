@@ -11,16 +11,16 @@ const initialState =  {
     
 export const reducer = (state=initialState, action) => {
 
-    if(action.type===actions.CHANGE_AUTH_STATUS) {
-        console.log("INSIDE CHANGE_AUTH_STATUS REDUCER");
-        console.log("ACTION", action)
-        return Object.assign({},state,{
-            authStatus: action.authStatus,
-            activeUser: action.activeUser
-        })
+    // if(action.type===actions.CHANGE_AUTH_STATUS) {
+    //     console.log("INSIDE CHANGE_AUTH_STATUS REDUCER");
+    //     console.log("ACTION", action)
+    //     return Object.assign({},state,{
+    //         authStatus: action.authStatus,
+    //         activeUser: action.activeUser
+    //     })
 
-    }
-    else if(action.type===actions.SAVE_USER_TO_STATE){
+    // }
+    if(action.type===actions.SAVE_USER_TO_STATE){
         console.log("inside SAVE_USER_TO_STATE");
         return Object.assign({},state,{
             user: [{
