@@ -21,11 +21,11 @@ export class NavBar extends React.Component {
 
             return (
                 <nav className="topnav" role = "navigation">
-                    <NavLink className='inactive' activeClassName='activeLink' to="/dashboard" >Dashboard</NavLink>
-                    <NavLink className='inactive' activeClassName='activeLink' to="/history" >History</NavLink>
+                    <NavLink className='link' activeClassName='activeLink' to="/dashboard" >Dashboard</NavLink>
+                    <NavLink className='link' activeClassName='activeLink' to="/history" >History</NavLink>
 
                     <div className="topnav-right">
-                        <NavLink className='inactive' activeClassName='activeLink' to={button1URL} >{button1}</NavLink>
+                        <NavLink className='link' activeClassName='activeLink' to={button1URL} >{button1}</NavLink>
                     </div>
                 </nav>       
             )   
@@ -39,10 +39,10 @@ export class NavBar extends React.Component {
             button2URL = "/register";
             return (
                 <nav className="topnav" role = "navigation">
-                    <NavLink className='inactive' activeClassName='activeLink' to="/">PT</NavLink>
+                    <NavLink className='link' activeClassName='activeLink' exact to="/">PT</NavLink>
                     <div className="topnav-right">
-                        <NavLink className='inactive' activeClassName='activeLink' to={button1URL}>{button1}</NavLink>
-                        <NavLink className='inactive' activeClassName='activeLink' to={button2URL}>{button2}</NavLink>
+                        <NavLink className='link' activeClassName='activeLink' to={button1URL}>{button1}</NavLink>
+                        <NavLink className='link' activeClassName='activeLink' to={button2URL}>{button2}</NavLink>
                     </div>
                 </nav>                
             )

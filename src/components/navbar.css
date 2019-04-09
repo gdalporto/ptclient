@@ -9,7 +9,7 @@
     padding:0;
 }
 
-.topnav-right > .inactive, .topnav > .inactive {
+.topnav-right > .link, .topnav > .link {
   float: left;
   color: #f2f2f2;
   text-align: center;

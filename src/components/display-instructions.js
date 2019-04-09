@@ -12,12 +12,14 @@ export default function DisplayInstructions(props) {
     return (
         <div className='treatment'>
             <p className='treatmentHeader'> Video Instructions for {props.treatment}:</p>
-            <iframe 
-                title={props.treatment}
-                src={`${props.treatmentInstruction.video}`}
-                frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen>
-            </iframe>
+            <div className="videoWrapper">
+                <iframe 
+                    title={props.treatment}
+                    src={`${props.treatmentInstruction.video}`}
+                    frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen>
+                </iframe>
+            </div>
             <p className='stepsHeader'> Step-by-step Instructions for {props.treatment}: </p>
 
                 <ul className='stepByStepList'>

@@ -61,7 +61,6 @@ export function LandingPage(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="clearMe"></div>
 
                 </div>
                 <div className='footer'>

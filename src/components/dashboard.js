@@ -104,10 +104,10 @@ export class Dashboard extends React.Component {
                 <p><span className='mainLabel'>Today's exercise program:</span> </p>
                 <ul className='listContainer'>
                     <li className='treatmentBlock'>
-                        <div className='column1Header'> 
+                        <div className='DBcolumn1Header'> 
                             Treatment Name
                         </div>
-                        <div className='column2Header'> 
+                        <div className='DBcolumn2Header'> 
                             Treatment Status
                         </div>
                     </li>
