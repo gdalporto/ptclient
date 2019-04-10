@@ -21,10 +21,9 @@ describe('core actions testing', ()=>{
         expect(action.type).toEqual(CLEAR_USER);
     });
 
-    it('loadCoreData should get treatments, conditions, update both.', ()=>{
+    it(' should use loadCoreData to get treatments, conditions, update both.', ()=>{
         const treatmenturl = API_BASE_URL + "/treatmentdata";
         const conditionurl = API_BASE_URL + "/conditiondata";
-        const dispatch=jest.fn();
         const saveLoadingCoreDataInput = {"loadingData":true}
         const saveLoadingCoreDataInput2 = {"loadingData":false}
         const treatmentArray = [
@@ -35,6 +34,9 @@ describe('core actions testing', ()=>{
             { "condition" : "Upper Back"},
             { "condition" : "Lower Back"}   
         ]
+
+        const dispatch=jest.fn();
+
         global.fetch = jest.fn().mockImplementation(()=>
             Promise.resolve({
                 ok:true,

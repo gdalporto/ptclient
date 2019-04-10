@@ -5,9 +5,9 @@ import DisplayInstructions from './display-instructions';
 
 
 export class Instructions extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
     getTreatment(){
         let treatment;
         if(!this.props.treatment){

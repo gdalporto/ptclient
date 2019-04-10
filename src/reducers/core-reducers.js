@@ -21,7 +21,6 @@ export const reducer = (state=initialState, action) => {
 
     // }
     if(action.type===actions.SAVE_USER_TO_STATE){
-        console.log("inside SAVE_USER_TO_STATE");
         return Object.assign({},state,{
             user: [{
                 id: action.id,
@@ -40,25 +39,21 @@ export const reducer = (state=initialState, action) => {
     }
 
     else if(action.type===actions.SAVE_LOADING_CORE_DATA) {
-        console.log("inside SAVE_LOADING_CORE_DATA reducer");
         return Object.assign({},state,{
             loadingData: action.loadingData.loadingData
         })
     }
     else if(action.type===actions.SAVE_LOADING_USER) {
-        console.log("inside SAVE_LOADING_USER reducer");
         return Object.assign({},state,{
             loadingUser: action.loadingUser.loadingUser
         })
     }
     else if(action.type===actions.UPDATE_TREATMENT_STATE) {
-        console.log("inside UPDATE_TREATMENT_STATE reducer");
         return Object.assign({},state,{
             treatments: action.treatments
         })
     }
     else if(action.type===actions.UPDATE_CONDITION_STATE) {
-        console.log("inside UPDATE_CONDITION_STATE reducer");
         return Object.assign({},state,{
             conditions: action.conditions
         })

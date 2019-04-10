@@ -52,10 +52,8 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
         status: treatmentObject.status,
         currentUser: treatmentObject.currentUser
     }
-    console.log("INSIDE LOGTREATMENT. TREATMENTPROFILE IS", treatmentProfile);
 
         let user = treatmentProfile.currentUser;
-        console.log("INSIDE REDUCER USER IS". user);
         let newLog={};
         let dateList = {};
 
@@ -79,7 +77,6 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
             const logitem = user.log[index];
             if(treatmentProfile.date !== date){
                 newLog={...newLog, ...logitem}
-                console.log("INSIDE FOREACH, DATE NOT MATCHED, NEWLOG IS", newLog)
             }
 
             // if datekey does match action date, 
@@ -90,7 +87,6 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
                 if(!logitem){
                     actionLog={[treatmentProfile.date]:{[treatmentProfile.treatment]: treatmentProfile.status}};
                     newLog={...newLog, ...actionLog}
-                    console.log("INSIDE FOREACH, DATE MATCHED, NO EXISTING, NEWLOG IS", newLog);
                 }
 
                 // if there are existing treatments, then iterate over each entry, appending new entry. 
@@ -117,11 +113,9 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
                     })
                     actionLog={[treatmentProfile.date]:logList}
                     newLog={...newLog, ...actionLog};
-                    console.log("INSIDE FOREACH, DATE MATCHED, EXISTING, NEWLOG IS", newLog);
                 }
             }
         })
-        console.log("NEWLOG AFTER DATEKEY ITERATION", newLog);
         let newLogArray =Object.keys(newLog).map(key => {
             return { [key]:newLog[key] }
         })
@@ -130,18 +124,13 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
             ...user, 
             log: newLogArray
         }
-        console.log("INSIDE LOGTREATMENT. USER IS", user);
-
-        console.log("DISPATCHING NEWAUTHTOKENPAYLOAD");
         // update auth token with updated log payload
         dispatch(newAuthTokenPayload(user));
 
-        console.log("DISPATCHING LOGTREATMENTSTATE")
         // update state with new log
         dispatch(logTreatmentState(user));
 
 
-        console.log("DISPATCHING DB CALL TO UPDATELOG")
         // update user log in database
         fetch(`${API_BASE_URL}/user/updatelog`, {
             method: 'POST',
@@ -174,7 +163,6 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
 // Stores the auth token in state and localStorage, and decodes and stores
 // the user data stored in the token
 const storeAuthInfo = (authToken, dispatch) => {
-    console.log("Inside StoreAuthInfo authtoken", authToken);
     const decodedToken = jwtDecode(authToken);
     dispatch(setAuthToken(authToken));
     dispatch(authSuccess(decodedToken.user));
@@ -222,7 +210,6 @@ export const newAuthTokenPayload = (payload) => (dispatch, getState) => {
     dispatch(authRequest());
     const authToken = getState().auth.authToken;
 //    const payload = getState().auth.currentUser;
-    console.log("PAYLOAD", JSON.stringify(payload));
     return fetch(`${API_BASE_URL}/auth/refresh/newpayload`, {
         method: 'POST',
         headers: {
@@ -241,7 +228,6 @@ export const newAuthTokenPayload = (payload) => (dispatch, getState) => {
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
         .then(({authToken}) => {
-            console.log("NEW AUTH TOKEN IS", authToken)
             storeAuthInfo(authToken, dispatch)
         })
         .catch(err => {

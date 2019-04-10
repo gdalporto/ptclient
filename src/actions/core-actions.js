@@ -95,7 +95,6 @@ export const getUserData = () => (dispatch) => {
     dispatch(saveLoadingUser({"loadingUser":true}))
     let authToken = loadAuthToken();
     const decodedToken = jwtDecode(authToken);
-    console.log({decodedToken});
    
     fetch(`${API_BASE_URL}/authcheck`, {
         method: 'GET',
@@ -110,7 +109,6 @@ export const getUserData = () => (dispatch) => {
     .then(jsonData =>{
         stat=jsonData.status;
         if(stat==="authenticated"){
-            console.log("FETCHING USER");
             fetch(`${API_BASE_URL}/protected/user`, {
                 method: 'GET',
                 headers: {
@@ -122,7 +120,7 @@ export const getUserData = () => (dispatch) => {
                 return response.json()
             })
             .then(jsonData=>{
-                console.log("USER FETCHED. JSON DATA TO PASS TO SAVEUSERTOSTATE", jsonData);
+                console.log("USER FETCHED.", jsonData);
                 dispatch(saveUserToState(jsonData))
             })
             .then(()=>{

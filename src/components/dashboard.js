@@ -29,10 +29,10 @@ export class Dashboard extends React.Component {
     };
     instructionList() {
         const yourTreatment = this.findTreatment(this.props.condition);
-        const instructions = yourTreatment.map(treatment => {
+        const instructions = yourTreatment.map((treatment,index) => {
 
             return (
-                <li className='instructionBlock'>
+                <li key={index} className='instructionBlock'>
                     <Instructions treatment={treatment} />
                 </li>
             )
@@ -75,8 +75,6 @@ export class Dashboard extends React.Component {
                 status:treatmentState,
                 dateExists
             }
-
-            console.log("TREATMENT OBJECT",treatmentObject)
 
             return (
                 <li key={treatment} className='treatmentBlock'>
@@ -124,8 +122,6 @@ export class Dashboard extends React.Component {
 
 
 const mapStateToProps = state => {   
-    console.log({state});
-    console.log("state auth currentuser", state.auth.currentUser)
     return ({
     user: state.auth.currentUser,
     username: state.auth.currentUser.username,

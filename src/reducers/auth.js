@@ -7,11 +7,6 @@ import {
     LOG_TREATMENT_STATE
 } from '../actions/auth';
 
-import {SubmissionError} from 'redux-form';
-
-import {API_BASE_URL} from '../config';
-import {normalizeResponseErrors} from '../actions/utils';
-
 
 const initialState = {
     authToken: null, // authToken !== null does not mean it has been validated
@@ -58,7 +53,6 @@ export default function reducer(state = initialState, action) {
 
         // Update user log in state
         let user = action.user;
-        console.log("NEW USERS RECORD IS", user);
         return Object.assign({},state,{
             currentUser: user
         })

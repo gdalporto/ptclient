@@ -35,9 +35,9 @@ export class HistoryPage extends React.Component {
     priorList() {
         let userlog=this.props.user.log;
         let daysBack = 30;
-        let treatments = this.props.user.treatments.map(treatment => {
+        let treatments = this.props.user.treatments.map((treatment,index) => {
             return (
-            <div className='treatment'>
+            <div key={index} className='treatment'>
                 <div className='treatmentname'></div>
                 <div className='status'></div>
             </div>)
@@ -99,10 +99,6 @@ export class HistoryPage extends React.Component {
 
     render() {
         
-        const myCondition = this.props.condition;
-        // const yourTreatment = this.findTreatment(myCondition);
-        // const today= formatDate(new Date());
-       
         return (
             <div className="historyPageWrapper">
                 <p>Over the past month, you've completed the following treatments: </p>
@@ -126,8 +122,6 @@ export class HistoryPage extends React.Component {
 
 
 const mapStateToProps = state => {   
-    console.log({state});
-    console.log("state auth currentuser", state.auth.currentUser)
     return ({
     user: state.auth.currentUser,
     username: state.auth.currentUser.username,

@@ -2,14 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 import './landing-page.css';
-import LoginForm from './login-form';
-import hero from './physical-therapy-hero-image.jpeg'
-
-function handleClick(event) {
-    event.preventDefault();
-    console.log("HELLO CLICK");
-    // <Route exact path="/" component={Home} />
-}
 
 export function LandingPage(props) {
     // If we are logged in redirect straight to the user's dashboard

@@ -19,15 +19,12 @@ import './main.css';
 export class Main extends React.Component  {
     componentDidMount(prevProps){
         let authToken = loadAuthToken();
-        console.log("AUTHTOKEN IS", authToken);
 
         this.props.dispatch(getCoreData());
         if (authToken) {
-            console.log("LOADING USER DATA");
             this.props.dispatch(getUserData())
         }
         else {       
-            console.log("FINISHED LOADING");
             this.props.dispatch(saveLoadingUser({"loadingUser":false}));
         }
     }
@@ -65,7 +62,6 @@ export class Main extends React.Component  {
 
     render () {
         if(!this.props.loadingData && !this.props.loadingUser){
-            console.log("LOADING COMPLETE");
             return (             
                 <div className='mainWrapper'> 
                         <NavBar className = 'navBarWrapper' />

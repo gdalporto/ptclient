@@ -50,7 +50,6 @@ export class NavBar extends React.Component {
     }
 
     render() {
-        console.log("UPDATING NAVBAR");
         return (
             <div className='headerContainer'>
                 {this.pickNav()}
