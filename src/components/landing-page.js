@@ -46,10 +46,10 @@ export function LandingPage(props) {
                         </ul>
                         <div className='buttonContainer'>
                             <div className='leftButton'>
-                                <button className='standardButton' ><Link className='buttonText' to="/login">Log In</Link></button>
+                                <button className='standardButton loginButton' ><Link className='buttonText' to="/login">Log In</Link></button>
                             </div>
                             <div className='rightButton'>
-                                <button className='standardButton'><Link className='buttonText' to="/register">Register</Link></button>
+                                <button className='standardButton registerButton'><Link className='buttonText' to="/register">Register</Link></button>
                             </div>
                         </div>
                     </div>

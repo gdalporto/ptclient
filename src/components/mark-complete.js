@@ -18,7 +18,7 @@ export class DisplayInstructions extends React.Component {
     render() {
         return (
             <div className='markCompleteWrapper'>
-                <button onClick={click=>this.handleClick(click)} variant="primary">{this.props.treatmentObject.status}</button>
+                <button id='button' name='markComplete' onClick={click=>this.handleClick(click)} variant="primary">{this.props.treatmentObject.status}</button>
             </div>
         );
     }

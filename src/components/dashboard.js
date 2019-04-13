@@ -43,9 +43,10 @@ export class Dashboard extends React.Component {
     }
     list(){
         const myCondition = this.props.condition;
+        console.log("myCondition", myCondition);
         const yourTreatment = this.findTreatment(myCondition);
         const today= formatDate(new Date());
-
+        console.log("yourTreatment", yourTreatment);
         const treatmentDisplay = yourTreatment.map(treatment => {
             let treatmentState = "";
             let dateExists = false;
