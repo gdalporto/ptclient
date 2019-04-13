@@ -132,7 +132,7 @@ export const logTreatment = (treatmentObject) => (dispatch)=> {
 
 
         // update user log in database
-        fetch(`${API_BASE_URL}/user/updatelog`, {
+        return fetch(`${API_BASE_URL}/user/updatelog`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

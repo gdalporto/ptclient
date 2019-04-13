@@ -50,6 +50,7 @@ describe('Auth Actions', ()=>{
                 "condition" : "Upper Back",
             }
         }
+        
         const dispatch=jest.fn();
         const url = API_BASE_URL + "/user/updatelog";
         global.fetch = jest.fn().mockImplementation(()=>
@@ -62,10 +63,18 @@ describe('Auth Actions', ()=>{
         )
         return logTreatment(treatmentObject)(dispatch).then(()=>{
             expect(dispatch).toHaveBeenCalled;
-            expect(fetch).toHaveBeenCalledWith(url, {"method":"POST"})
+            expect(fetch).toHaveBeenCalled;
         })
     })
 })
+
+
+
+
+
+
+
+
 
 
 

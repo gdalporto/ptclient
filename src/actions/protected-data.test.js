@@ -12,7 +12,7 @@ describe('PROTECTED DATA', ()=>{
     it('should get protected data', ()=>{
         const url=API_BASE_URL+"/protected";
         const dispatch=jest.fn();
-        const store=mockStore(initialState);
+        const authToken = jest.fn();
         global.fetch = jest.fn().mockImplementation(()=>{
             Promise.resolve({
                 ok:true,
@@ -21,6 +21,7 @@ describe('PROTECTED DATA', ()=>{
                 }
             })
         })
+
 
         return fetchProtectedData()(dispatch).then(()=>{
             expect(dispatch).toHaveBeenCalledWith(fetchProtectedDataSuccess("Hello"));
