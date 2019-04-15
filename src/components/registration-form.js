@@ -64,7 +64,7 @@ export class RegistrationForm extends React.Component {
                 <label htmlFor="passwordCheck">Re-enter password</label>
                 <Field 
                     name = "passwordCheck" 
-                    type = "text"
+                    type = "password"
                     component={Input}
                     validate={[required, matchesPassword]}
                />
